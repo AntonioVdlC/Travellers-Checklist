@@ -1,7 +1,13 @@
 define(function (require){
 
 	var $ 			= require('jquery'),
-		Backbone	= require('backbone');
+		Backbone	= require('backbone'),
+		Store		= require('app/store/websql-store'),
+		HomeView 	= require('app/views/home.view'),
+
+		homeView = new HomeView();
+
+	Store.initialize();
 
 	return Backbone.Router.extend({
 
@@ -10,7 +16,7 @@ define(function (require){
 		},
 
 		home: function (){
-			$('body').append('<p>Hello World!</p>');
+			homeView.render();
 		}
 	});
 });
