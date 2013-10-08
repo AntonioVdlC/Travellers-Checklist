@@ -1,0 +1,13 @@
+<div class="topcoat-list__container scrollable">
+	<ul class="topcoat-list list">
+	<% _.each(checklists, function(checklist) { %>
+	    <li class="topcoat-list__item">
+	        <a href="#checklist/<%= checklist.id %>">
+	            <p><%= checklist.name %></p>
+	            <p><%= checklist.lastModified %></p>
+	        </a>
+	        <button class="topcoat-button">Delete</button>
+	    </li>
+	<% }); %>
+	</ul>
+</div>
