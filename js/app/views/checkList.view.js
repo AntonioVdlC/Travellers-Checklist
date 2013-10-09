@@ -24,7 +24,7 @@ define(function (require){
 		},
 
 		events: {
-			'click .delete': 'deleteCheckList',
+			'click .delete-cl': 'deleteCheckList',
 			'click .new-cl': 'newCheckList'
 		},
 

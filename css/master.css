@@ -12,10 +12,34 @@
     left: 0px;
     right: 0px;
 }
+.scrollable a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* CheckList Name */
+.cl-name {
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+/* Last Modified Date text*/
+.last-modified{
+    font-size: 0.75em;
+}
+
+/* Delete Icon */
+.delete-cl{
+    float: right;
+    display: inline-block;
+    height: 42px;
+    width: 42px;
+    background: url("../img/delete.svg") no-repeat;
+}
 
 /* Footer */
 .footer{
     position: absolute;
     bottom: 5px;
-    right: 0px
+    right: 0px;
 }

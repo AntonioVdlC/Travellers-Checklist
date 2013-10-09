@@ -1,11 +1,11 @@
 <ul class="topcoat-list list">
 <% _.each(checklists, function(checklist) { %>
     <li class="topcoat-list__item">
+        <span class="delete-cl" id="<%= checklist.id %>"></span>
         <a href="#checklist/<%= checklist.id %>">
-            <p><%= checklist.name %></p>
-            <p><%= checklist.lastModified %></p>
+        	<span class="cl-name"><%= checklist.name %></span><br/>
+        	<span class="last-modified">Last modified: <%= checklist.lastModified %></span>
         </a>
-        <button class="topcoat-button delete" id="<%= checklist.id %>">Delete</button>
     </li>
 <% }); %>
 </ul>
