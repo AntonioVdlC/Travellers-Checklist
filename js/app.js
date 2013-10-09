@@ -18,7 +18,9 @@ require.config({
     }
 });
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router){
+require(['jquery', 'backbone', 'app/router', 'app/store/websql-store'], function ($, Backbone, Router, Store){
+
+    Store.initialize();
 
     var router = new Router();
 
