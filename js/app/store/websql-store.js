@@ -73,6 +73,33 @@ define(function (require) {
                     function(tx, error) {
                         alert('INSERT error: ' + error.message);
                     });
+            var sql1 = "CREATE TABLE IF NOT EXISTS category_"+ i +" ( " +
+            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            		"name VARCHAR(50), " +
+            		"lastModified DATE)";
+
+	        tx.executeSql(sql1, null,
+	            function() {
+	                console.log('Create category_'+i+' table success');
+	            },
+	            function(tx, error) {
+	                alert('Create category_'+i+' table error: ' + error.message);
+	            }
+	        );
+
+	        var sql2 = "CREATE TABLE IF NOT EXISTS item_"+ i +" ( " +
+            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            		"name VARCHAR(50), " +
+            		"lastModified DATE)";
+
+	        tx.executeSql(sql2, null,
+	            function() {
+	                console.log('Create item_'+i+' table success');
+	            },
+	            function(tx, error) {
+	                alert('Create item_'+i+' table error: ' + error.message);
+	            }
+	        );
         }
 
 	};
@@ -88,7 +115,7 @@ define(function (require) {
 
                 var sql = "SELECT * FROM checklist";
 
-                tx.executeSql(sql, [], function(tx, results) {
+                tx.executeSql(sql, [], function (tx, results) {
                 	for(var i=0; i<results.rows.length; i++)
                 		data.push(results.rows.item(i));
 
@@ -106,13 +133,34 @@ define(function (require) {
 	WebSQLStore.prototype.deleteCheckList = function (id, successCallback) {
 		console.log('Deleting checklist: id = ' + id);
 
+		var self = this;
+
 		this.db.transaction(
 			function(tx){
 				var sql = "DELETE FROM checklist WHERE id = :id";
 
-				tx.executeSql(sql, [id], function(tx, results){
-					console.log('CheckList deleted ... refreshing the collection');
-					if(successCallback)successCallback();
+				tx.executeSql(sql, [id], function (tx, results){
+					console.log('CheckList deleted ... Droping category_ and item_ tables ...');
+
+					var sql1 = "DROP TABLE IF EXISTS category_"+id;
+
+					tx.executeSql(sql1, [], function (tx, results){
+						
+						var sql2 = "DROP TABLE IF EXISTS item_"+id;
+
+						tx.executeSql(sql2, [], function (tx, results){
+							console.log('Tables dropped ... refreshing the collection ...');
+							if(successCallback)successCallback();
+						},
+						function (error){
+							alert('ERROR: ' + error.message);
+							console.log(error);
+						});
+					},
+					function (error){
+						alert('ERROR: ' + error.message);
+						console.log(error);
+					});
 				},
 				function(error){
 					alert("Delete Transation Error: " + error.message);
