@@ -29,12 +29,19 @@ define(function (require){
 		},
 
 		deleteCheckList: function (e) {
-			console.log(e.currentTarget.id);
-
+			var self = this;
 			var id = e.currentTarget.id;
+			var clName = e.currentTarget.nextSibling.nextSibling.firstElementChild.innerText;
 
-			//Delete CheckList ... todo
-			//Store.deleteCheckList(id);
+			//Delete CheckList ... todo with PhoneGap Notification Plug-In
+			var del = confirm('Are you sure you want to delete the checklist "' + clName + '"?');
+			if(del == true)
+				Store.deleteCheckList(id, function(){
+					self.collection.refresh()
+				});
+			else
+				return;
+			//Delete CheckList ... todo with PhoneGap Notification Plug-In
 		},
 
 		newCheckList: function() {

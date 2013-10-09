@@ -92,7 +92,7 @@ define(function (require) {
                 	for(var i=0; i<results.rows.length; i++)
                 		data.push(results.rows.item(i));
 
-                	console.log(data);
+                	//console.log(data);
                 	if(successCallback)successCallback(data);
                 });
             },
@@ -103,8 +103,22 @@ define(function (require) {
 	};
 
 	//Delete a given checklist (id)
-	WebSQLStore.prototype.deleteCheckList = function (id) {
-		// body...
+	WebSQLStore.prototype.deleteCheckList = function (id, successCallback) {
+		console.log('Deleting checklist: id = ' + id);
+
+		this.db.transaction(
+			function(tx){
+				var sql = "DELETE FROM checklist WHERE id = :id";
+
+				tx.executeSql(sql, [id], function(tx, results){
+					console.log('CheckList deleted ... refreshing the collection');
+					if(successCallback)successCallback();
+				},
+				function(error){
+					alert("Delete Transation Error: " + error.message);
+				});
+			}
+		);
 	};
 
 	//Add a new checklist to the table
