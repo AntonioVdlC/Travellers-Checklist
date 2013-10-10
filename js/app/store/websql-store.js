@@ -75,8 +75,7 @@ define(function (require) {
                     });
             var sql1 = "CREATE TABLE IF NOT EXISTS category_"+ i +" ( " +
             		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            		"name VARCHAR(50), " +
-            		"lastModified DATE)";
+            		"name VARCHAR(50))";
 
 	        tx.executeSql(sql1, null,
 	            function() {
@@ -90,7 +89,9 @@ define(function (require) {
 	        var sql2 = "CREATE TABLE IF NOT EXISTS item_"+ i +" ( " +
             		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             		"name VARCHAR(50), " +
-            		"lastModified DATE)";
+            		"checked INTEGER(2)," +
+            		"checkedDate DATE," +
+            		"categoryId INTEGER)";
 
 	        tx.executeSql(sql2, null,
 	            function() {

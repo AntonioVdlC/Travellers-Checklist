@@ -10,18 +10,32 @@ define(function (require){
 
 	return Backbone.View.extend({
 
+		el: $('#mainContent'),
+
 		initialize: function () {
 			//this.render();
 		},
 
 		render: function () {
-			$('body').html(template());
-			this.listView = new CheckListView({el:$('.scrollable')});
+			this.$el.html(template());
+			this.listView = new CheckListView({el:$('.scrollable-cl')});
 			return this;
 		},
 
 		events: {
+			'click .new-cl': 'newCheckList'
+		},
 
+		newCheckList: function() {
+			console.log('New CheckList');
+
+			/*var self = this;
+
+			require(['app/store/websql-store'], function (Store){
+				Store.newCheckList(function(){
+					self.listView.collection.refresh();
+				});
+			})*/
 		}
 	});
 });

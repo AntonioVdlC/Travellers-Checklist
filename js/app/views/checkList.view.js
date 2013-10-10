@@ -18,14 +18,13 @@ define(function (require){
 		},
 
 		render: function () {
-			console.log(this.collection.toJSON());
+			//console.log(this.collection.toJSON());
 			this.$el.html(template({checklists: this.collection.toJSON()}));
 			return this;
 		},
 
 		events: {
-			'click .delete-cl': 'deleteCheckList',
-			'click .new-cl': 'newCheckList'
+			'click .delete-cl': 'deleteCheckList'
 		},
 
 		deleteCheckList: function (e) {
@@ -42,10 +41,6 @@ define(function (require){
 			else
 				return;
 			//Delete CheckList ... todo with PhoneGap Notification Plug-In
-		},
-
-		newCheckList: function() {
-
 		}
 	});
 });
