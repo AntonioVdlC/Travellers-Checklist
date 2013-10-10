@@ -4,6 +4,7 @@ define(function (require){
 		_				= require('underscore'),
 		Backbone		= require('backbone'),
 		Store			= require('app/store/websql-store'),
+		ModalPopup		= require('app/utils/modalPopup'),
 		CheckListView	= require('app/views/checkList.view'),
 		tpl				= require('text!tpl/homePage.html'),
 
@@ -33,15 +34,22 @@ define(function (require){
 			var id = e.currentTarget.id;
 			var clName = e.currentTarget.nextSibling.nextSibling.firstElementChild.innerText;
 
-			//Delete CheckList ... todo with PhoneGap Notification Plug-In
-			var del = confirm('Are you sure you want to delete the checklist "' + clName + '"?');
-			if(del == true)
-				Store.deleteCheckList(id, function(){
-					self.listView.collection.refresh()
-				});
-			else
-				return;
-			//Delete CheckList ... todo with PhoneGap Notification Plug-In
+			var delWindow = new ModalPopup(
+				'Delete CheckList', 
+				'<p>Are you sure you want to delete the checklist "' + clName + '"?</p>', 
+				['Cancel', 'OK'],
+				function(e){
+					console.log('Deleting checklist...');
+					Store.deleteCheckList(e.data.id, function(){
+						self.listView.collection.refresh();
+						delWindow.hide();
+					});
+				},
+				{id: id}, 
+				'delete-cl'
+			);
+
+			delWindow.show();
 		},
 
 		newCheckList: function() {
