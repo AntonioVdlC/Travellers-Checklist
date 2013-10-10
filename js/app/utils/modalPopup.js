@@ -10,27 +10,37 @@ define(function (require){
 		$('<div></div>').addClass('modalWindow').appendTo('body');
 
 		//Fill the modalWindowElement
-		$('.modalWindow').append('<div class="modalTitle">'+title+'</div>');
-		$('.modalWindow').append(innerHTML);
-		$('.modalWindow').append(	'<div class="modalFooter">' + 
+		$('.modalWindow').append('<div class="modalWindowHeader">'+title+'</div>');
+		$('.modalWindow').append('<div class="modalWindowContent">'+innerHTML+'</div>');
+		$('.modalWindow').append(	'<div class="modalWindowFooter">' + 
 										'<button class="cancelButton">'+buttonLabels[0]+'</button>' +
 										'<button class="okButton">'+buttonLabels[1]+'</button>'+
 									'</div>');
 
 		//Button events listeners
 		$('.cancelButton').on('click', this.hide);
-		
+
 		if(type == 'delete-cl')
 			$('.okButton').on('click', {id: data.id}, callback);
+		else if(type == 'new-cl')
+			$('.okButton').on('click', {callback: callback}, this.retrieveInput);
 		else
 			$('.okButton').on('click', callback);
 
 		//Style the modalWindowElement
+		//$('.modalWindow').css('width', (window.innerWidth) / 2 + 'px');
 		$('.modalWindow').css('left', (window.innerWidth - 200) / 2 + 'px');
+		$('.modalWindow').css('top', (window.innerHeight - 200) / 2 + 'px');
+
+		$('.modalWindow').css('max-height', parseInt((window.innerHeight + 100) / 2) + 'px'); 
+
 		
 		//Save a reference to the overlay and the modal elements
 		this.overlayElement = $('.modalOverlay');
 		this.modalWindowElement = $('.modalWindow');
+
+		//Resize event handler
+		window.addEventListener('resize', this.resize, false);
 
 		return this;
 	}
@@ -60,6 +70,22 @@ define(function (require){
 			$('.modalOverlay').remove();
 			$('.modalWindow').remove();
 		}, 400);
+	};
+
+	modalPopup.prototype.resize = function () {
+		$('.modalWindow').css('left', parseInt((window.innerWidth - 200) / 2) + 'px');
+		$('.modalWindow').css('top', parseInt((window.innerHeight - 200) / 2) + 'px');
+
+		$('.modalWindow').css('max-height', parseInt((window.innerHeight + 100) / 2) + 'px'); 
+	};
+
+	modalPopup.prototype.retrieveInput = function (e) {
+		/*console.log(e.data.callback);
+
+		console.log($('#name-cl').val());
+		console.log($('#model-cl').val());*/
+
+		e.data.callback ($('#name-cl').val(), $('#model-cl').val());
 	};
 
 	return modalPopup;
