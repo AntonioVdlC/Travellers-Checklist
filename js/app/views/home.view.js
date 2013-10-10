@@ -5,6 +5,7 @@ define(function (require){
 		Backbone		= require('backbone'),
 		Store			= require('app/store/websql-store'),
 		ModalPopup		= require('app/utils/modalPopup'),
+		NewCheckListTpl	= require('text!tpl/newCheckList.html'),
 		CheckListView	= require('app/views/checkList.view'),
 		tpl				= require('text!tpl/homePage.html'),
 
@@ -38,14 +39,16 @@ define(function (require){
 				'Delete CheckList', 
 				'<p>Are you sure you want to delete the checklist "' + clName + '"?</p>', 
 				['Cancel', 'OK'],
-				function(e){
+				function (e){
 					console.log('Deleting checklist...');
 					Store.deleteCheckList(e.data.id, function(){
 						self.listView.collection.refresh();
 						delWindow.hide();
 					});
 				},
-				{id: id}, 
+				{
+					id: id
+				}, 
 				'delete-cl'
 			);
 
@@ -55,13 +58,24 @@ define(function (require){
 		newCheckList: function() {
 			console.log('New CheckList');
 
-			/*var self = this;
+			var self = this;
 
-			require(['app/store/websql-store'], function (Store){
-				Store.newCheckList(function(){
-					self.listView.collection.refresh();
-				});
-			})*/
+			var newWindow = new ModalPopup(
+				'New CheckList',
+				NewCheckListTpl,
+				['Cancel', 'Create'],
+				function (name, model){
+					console.log('Creating new checklist: ' + name + ' - ' + model);
+					Store.addCheckList(name, model, function(){
+						self.listView.collection.refresh();
+						newWindow.hide();
+					});
+				},
+				{},
+				'new-cl'
+			);
+
+			newWindow.show();
 		}
 	});
 });
