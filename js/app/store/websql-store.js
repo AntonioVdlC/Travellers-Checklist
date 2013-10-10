@@ -20,7 +20,7 @@ define(function (require) {
 		this.db.transaction(
             function (tx) {
                 self.createCLTable(tx);
-                self.addSampleData(tx); //FOR TESTING PURPOSES
+                //self.addSampleData(tx); //FOR TESTING PURPOSES
             },
             function (error) {
                 console.log('Transaction error: ' + error);
