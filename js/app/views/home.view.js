@@ -66,10 +66,13 @@ define(function (require){
 				['Cancel', 'Create'],
 				function (name, model){
 					console.log('Creating new checklist: ' + name + ' - ' + model);
-					Store.addCheckList(name, model, function(){
-						self.listView.collection.refresh();
-						newWindow.hide();
-					});
+					if(name != '')
+						Store.addCheckList(name, model, function(){
+							self.listView.collection.refresh();
+							newWindow.hide();
+						});
+					else
+						return;
 				},
 				{},
 				'new-cl'
