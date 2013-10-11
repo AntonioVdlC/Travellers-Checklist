@@ -1,16 +1,26 @@
 define(function (require){
 
 	var $ 			= require('jquery'),
-		Backbone	= require('backbone');
+		Backbone	= require('backbone'),
+		//Store		= require('app/store/websql-store'),
+		HomeView 	= require('app/views/home.view'),
+
+		homeView = new HomeView();
 
 	return Backbone.Router.extend({
 
 		routes: {
-			'' : 'home'
+			'' : 'home',
+			'checklist/:id': 'checkListPage'
 		},
 
 		home: function (){
-			$('body').append('<p>Hello World!</p>');
+			homeView.render();
+		},
+
+		checkListPage: function (id) {
+			console.log('Routing to CheckList Page: ' + id);
 		}
+
 	});
 });
