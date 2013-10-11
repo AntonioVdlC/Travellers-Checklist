@@ -30,9 +30,9 @@ define(function (require){
 		//Style the modalWindowElement
 		//$('.modalWindow').css('width', (window.innerWidth) / 2 + 'px');
 		$('.modalWindow').css('left', (window.innerWidth - 200) / 2 + 'px');
-		$('.modalWindow').css('top', (window.innerHeight - 200) / 2 + 'px');
+		$('.modalWindow').css('top', (window.innerHeight - 300) / 2 + 'px');
 
-		$('.modalWindow').css('max-height', parseInt((window.innerHeight + 100) / 2) + 'px'); 
+		$('.modalWindow').css('max-height', parseInt((window.innerHeight + 200) / 2) + 'px'); 
 
 		
 		//Save a reference to the overlay and the modal elements
@@ -74,9 +74,9 @@ define(function (require){
 
 	modalPopup.prototype.resize = function () {
 		$('.modalWindow').css('left', parseInt((window.innerWidth - 200) / 2) + 'px');
-		$('.modalWindow').css('top', parseInt((window.innerHeight - 200) / 2) + 'px');
+		$('.modalWindow').css('top', parseInt((window.innerHeight - 300) / 2) + 'px');
 
-		$('.modalWindow').css('max-height', parseInt((window.innerHeight + 100) / 2) + 'px'); 
+		$('.modalWindow').css('max-height', parseInt((window.innerHeight + 200) / 2) + 'px'); 
 	};
 
 	modalPopup.prototype.retrieveInput = function (e) {
