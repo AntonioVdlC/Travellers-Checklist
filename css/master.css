@@ -1,18 +1,32 @@
 /*------------------------------
+ * TITLE BAR
+ *------------------------------*/
+
+/* Title */
+.center.full {
+    line-height: 160%;
+}
+
+/*------------------------------
  * HOME PAGE
  *------------------------------*/
 
+/* Introduction Text */
+#introText {
+    vertical-align: middle;
+}
+
 /* Scrollable List Content */
-.scrollable {
+.scrollable-cl {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     position: absolute;
-    top: 160px;
+    top: 170px;
     bottom: 60px;
     left: 0px;
     right: 0px;
 }
-.scrollable a {
+.scrollable-cl a {
     text-decoration: none;
     color: inherit;
 }

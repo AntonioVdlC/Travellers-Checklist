@@ -18,14 +18,14 @@ define(function (require) {
 
 		//Create CheckList Table
 		this.db.transaction(
-            function(tx) {
+            function (tx) {
                 self.createCLTable(tx);
-                self.addSampleData(tx); //FOR TESTING PURPOSES
+                //self.addSampleData(tx); //FOR TESTING PURPOSES
             },
-            function(error) {
+            function (error) {
                 console.log('Transaction error: ' + error);
             },
-            function() {
+            function () {
                 console.log('Transaction success');
             }
         )
@@ -41,10 +41,10 @@ define(function (require) {
             		"lastModified DATE)";
 
         tx.executeSql(sql, null,
-            function() {
+            function () {
                 console.log('Create checklist table success');
             },
-            function(tx, error) {
+            function (tx, error) {
                 alert('Create checklist table error: ' + error.message);
             }
         );
@@ -70,9 +70,37 @@ define(function (require) {
                     function() {
                         console.log('INSERT success');
                     },
-                    function(tx, error) {
+                    function (tx, error) {
                         alert('INSERT error: ' + error.message);
                     });
+            var sql1 = "CREATE TABLE IF NOT EXISTS category_"+ i +" ( " +
+            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            		"name VARCHAR(50))";
+
+	        tx.executeSql(sql1, null,
+	            function() {
+	                console.log('Create category_'+i+' table success');
+	            },
+	            function( tx, error) {
+	                alert('Create category_'+i+' table error: ' + error.message);
+	            }
+	        );
+
+	        var sql2 = "CREATE TABLE IF NOT EXISTS item_"+ i +" ( " +
+            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            		"name VARCHAR(50), " +
+            		"checked INTEGER(2)," +
+            		"checkedDate DATE," +
+            		"categoryId INTEGER)";
+
+	        tx.executeSql(sql2, null,
+	            function () {
+	                console.log('Create item_'+i+' table success');
+	            },
+	            function (tx, error) {
+	                alert('Create item_'+i+' table error: ' + error.message);
+	            }
+	        );
         }
 
 	};
@@ -84,11 +112,11 @@ define(function (require) {
 		var data = [];
 
 		this.db.transaction(
-            function(tx) {
+            function (tx) {
 
                 var sql = "SELECT * FROM checklist";
 
-                tx.executeSql(sql, [], function(tx, results) {
+                tx.executeSql(sql, [], function (tx, results) {
                 	for(var i=0; i<results.rows.length; i++)
                 		data.push(results.rows.item(i));
 
@@ -96,7 +124,7 @@ define(function (require) {
                 	if(successCallback)successCallback(data);
                 });
             },
-            function(error) {
+            function (error) {
                 alert("Transaction Error: " + error.message);
             }
         );
@@ -106,15 +134,36 @@ define(function (require) {
 	WebSQLStore.prototype.deleteCheckList = function (id, successCallback) {
 		console.log('Deleting checklist: id = ' + id);
 
+		var self = this;
+
 		this.db.transaction(
-			function(tx){
+			function (tx){
 				var sql = "DELETE FROM checklist WHERE id = :id";
 
-				tx.executeSql(sql, [id], function(tx, results){
-					console.log('CheckList deleted ... refreshing the collection');
-					if(successCallback)successCallback();
+				tx.executeSql(sql, [id], function (tx, results){
+					console.log('CheckList deleted ... Droping category_ and item_ tables ...');
+
+					var sql1 = "DROP TABLE IF EXISTS category_"+id;
+
+					tx.executeSql(sql1, [], function (tx, results){
+						
+						var sql2 = "DROP TABLE IF EXISTS item_"+id;
+
+						tx.executeSql(sql2, [], function (tx, results){
+							console.log('Tables dropped ... Refreshing the collection ...');
+							if(successCallback)successCallback();
+						},
+						function (error){
+							alert('ERROR: ' + error.message);
+							console.log(error);
+						});
+					},
+					function (error){
+						alert('ERROR: ' + error.message);
+						console.log(error);
+					});
 				},
-				function(error){
+				function (error){
 					alert("Delete Transation Error: " + error.message);
 				});
 			}
@@ -122,8 +171,65 @@ define(function (require) {
 	};
 
 	//Add a new checklist to the table
-	WebSQLStore.prototype.addCheckList = function () {
-		// body...
+	WebSQLStore.prototype.addCheckList = function (name, model, successCallback) {
+		console.log('Adding new checklist: ' + name + ' - ' + model);
+
+		var self = this;
+
+		this.db.transaction(
+			function (tx){
+
+				var sql = "INSERT INTO checklist" +
+						"(name, lastModified)"+
+						"VALUES (?, ?)";
+
+				tx.executeSql(sql, [name, new Date()], function (tx, results){
+					console.log('New checklist insert success ... Creating category_ and item_ tables...');
+
+					var sql1 = "SELECT id FROM checklist WHERE name='" + name +"'";
+
+					tx.executeSql(sql1, null, function (tx, results) {
+						console.log("New checklist id: " + results.rows.item(0).id);
+
+						var newId = results.rows.item(0).id;
+
+						var sql2 = "CREATE TABLE IF NOT EXISTS category_"+ newId +" ( " +
+		            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+		            		"name VARCHAR(50))";
+
+						tx.executeSql(sql2, null, function (tx, results) {
+							var sql3 = "CREATE TABLE IF NOT EXISTS item_"+ newId +" ( " +
+			            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			            		"name VARCHAR(50), " +
+			            		"checked INTEGER(2)," +
+			            		"checkedDate DATE," +
+			            		"categoryId INTEGER)";
+
+							tx.executeSql(sql3, null, function (tx, results) {
+								console.log('Tables created with success ... Refreshing the collection ...');
+								if(successCallback) successCallback();
+							},
+							function (error) {
+								alert("Create new item_ table Error: " + error.message);
+								console.log(error);
+							});
+						},
+						function (error){ 
+							alert("Create new category_ table Error: " + error.message);
+							console.log(error);
+						});
+					},
+					function (error) {
+						alert("Select new checklist id Error: " + error.message);
+						console.log(error);
+					});	
+				},
+				function (error){
+					alert("Add new checklist Transation Error: " + error.message);
+					console.log(error);
+				});
+			}
+		);
 	};
 
 
