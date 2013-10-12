@@ -24,5 +24,10 @@ require(['jquery', 'backbone', 'app/router', 'app/store/websql-store'], function
 
     var router = new Router();
 
+    $('body').on('click', '.back-button', function (e) {
+        e.preventDefault();
+        window.history.back();
+    });
+
     Backbone.history.start();
 });
