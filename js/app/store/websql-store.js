@@ -233,6 +233,66 @@ define(function (require) {
 	};
 
 
+	//Retrieve all the categores from a given checklist
+	WebSQLStore.prototype.fetchCategories = function (checkListId, successCallback) {
+		console.log('Fetching all the categories from checklist: ' + checkListId);
+
+		var self = this;
+
+		var data = {};
+		data.array = [];
+		data.checkListId = checkListId;
+
+		this.db.transaction(
+			function (tx) {
+
+				var sql = "SELECT name FROM checklist WHERE id='"+checkListId+"'";
+				tx.executeSql(sql, null, function (tx, results) {
+					console.log('Retrieving name of checklist: ' + results.rows.item(0).name);
+					data.checkListName = results.rows.item(0).name;
+
+					var sql1 = "SELECT * FROM category_"+ checkListId;
+					tx.executeSql(sql1, null, function (tx, results) {
+						console.log("Retrieving all info on category_"+ checkListId);
+
+						for(var i=0; i<results.rows.length; i++)
+                			data.array.push(results.rows.item(i));
+
+                		console.log(data);
+
+                		//TODO - Retrieve the number of checked items and total items !!!!
+
+                		if(successCallback)successCallback(data);
+					},
+					function (tx, error) {
+						alert("Select all from category_"+checkListId+" table Error: " + error.message);
+						console.log(error);
+					});
+				},
+				function (tx, error) {
+					alert("Retrieve name of checklist Error: " + error.message);
+					console.log(error);
+				});
+			},
+			function (error) {
+				alert("Transation Error: " + error.message);
+				console.log(error);
+			}
+		);
+
+	};
+
+	//Add a new category to a given checklist
+	WebSQLStore.prototype.addCategory = function (checkListId, categoryName, successCallback) {
+		// body...
+	};
+
+	//Remove a category from a given checklist
+	WebSQLStore.prototype.deleteCategory = function (checkListId, categoryId, successCallback) {
+		// body...
+	};
+
+
 	var store = new WebSQLStore();
 	return store;
 });
