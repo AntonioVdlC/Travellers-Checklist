@@ -102,7 +102,7 @@
 }
 
 /* Add Category Button */
-.topcoat-button.add-cat-button {
+#add-cat-button {
     float: right;
     line-height: 250%;
     max-width: 25%;

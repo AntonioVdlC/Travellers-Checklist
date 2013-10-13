@@ -3,6 +3,8 @@ define(function (require){
 	var $				= require('jquery'),
 		_				= require('underscore'),
 		Backbone		= require('backbone'),
+		Store			= require('app/store/websql-store'),
+		ModalPopup		= require('app/utils/modalPopup'),
 		model			= require('app/models/categoryList.model'),
 		tpl				= require('text!tpl/categoryList.html'),
 		
@@ -22,7 +24,7 @@ define(function (require){
 		},
 
 		render: function () {
-			console.log(this.collection.toJSON());
+			//console.log(this.collection.toJSON());
 			this.$el.html(template({categories: this.collection.toJSON()}));
 			return this;
 		},
@@ -30,7 +32,8 @@ define(function (require){
 		events: {
 			'blur #add-cat-input': 'blurInput',
 			'focus #add-cat-input': 'focusInput',
-			'click .add-cat-button': 'addCategory',
+			'click #add-cat-button': 'addCategory',
+			'click .delete-cat': 'deleteCategory',
 			'click .save-model': 'saveAsModel'
 		},
 
@@ -45,7 +48,43 @@ define(function (require){
 		},
 
 		addCategory: function (e) {
-			
+			console.log('New category');
+
+			if($('#add-cat-input').val() == '' || $('#add-cat-input').val() == 'New category...')
+				return;
+
+			var self = this;
+
+			Store.addCategory(this.id, $('#add-cat-input').val(), function (){
+				self.collection.refresh();
+			});	
+		},
+
+		deleteCategory: function (e) {
+			var self = this;
+			var id = e.currentTarget.id;
+			var catName = e.currentTarget.nextSibling.nextSibling.firstElementChild.innerText;
+
+			console.log('Delete category: id = '+id+' name = '+catName);
+
+			var delWindow = new ModalPopup(
+				'Delete Category', 
+				'<p>Are you sure you want to delete the category "' + catName + '"?</p>', 
+				['Cancel', 'OK'],
+				function (e){
+					console.log('Deleting checklist...');
+					Store.deleteCategory(self.id, id, function(){
+						self.collection.refresh();
+						delWindow.hide();
+					});
+				},
+				{
+					id: id
+				}, 
+				'delete-cat'
+			);
+
+			delWindow.show();
 		},
 
 		saveAsModel: function (e) {

@@ -6,8 +6,8 @@ define(function (require){
 		HomeView 		= require('app/views/home.view'),
 		CheckListView	= require('app/views/categoryList.view'),
 
-		homeView = new HomeView(),
-		checkListView;
+		homeView = new HomeView({el:$('body')}),
+		checkListView = null;
 
 	return Backbone.Router.extend({
 
@@ -18,6 +18,11 @@ define(function (require){
 		},
 
 		home: function (){
+			console.log('Routing to home...');
+			
+			if(checkListView)
+				checkListView.remove();
+
 			homeView.render();
 		},
 
