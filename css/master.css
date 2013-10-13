@@ -57,3 +57,90 @@
     bottom: 5px;
     right: 0px;
 }
+
+
+/*------------------------------
+ * CHECKLIST PAGE
+ *------------------------------*/
+
+/* CheckList Navigation Bar */
+.checkListNav {
+    height: 3rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;
+}
+
+/* CheckList Name */
+.checkListName {
+    line-height: 130%;
+    font-size: 2rem;
+}
+
+/* Back button */
+.back-button{
+    float: left;
+    display: inline-block;
+    height: 42px;
+    width: 42px;
+    background: url("../img/back_light.svg") no-repeat;
+}
+
+/* Add Category Bar */
+.addCategoy {
+    background: #e5e9e8;
+}
+
+/* Add Category Input */
+#add-cat-input{
+    width: 70%;
+    line-height: 212%;
+    margin-top: 2px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 1em;
+}
+
+/* Add Category Button */
+.topcoat-button.add-cat-button {
+    float: right;
+    line-height: 250%;
+    max-width: 25%;
+    margin-top: 1px;
+    margin-right: 5px;
+}
+
+/* Scrollable List Content */
+.scrollable-cat {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 170px;
+    bottom: 60px;
+    left: 0px;
+    right: 0px;
+}
+.scrollable-cat a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Category Name */
+.cat-name {
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+/* Items checked */
+.cat-items{
+    font-size: 0.75em;
+}
+
+/* Delete Icon */
+.delete-cat{
+    float: right;
+    display: inline-block;
+    height: 42px;
+    width: 42px;
+    background: url("../img/delete.svg") no-repeat;
+}
