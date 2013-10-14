@@ -287,12 +287,16 @@ define(function (require) {
 				var sql = "DELETE FROM category_"+checkListId+" WHERE id = :id";
 
 				tx.executeSql(sql, [categoryId], function (tx, results){
-					console.log('Category deleted ... Refreshing the collection ...');
+					console.log('Category deleted ... Deleting the items from this category ...');
 
-					//TODO Delete the items from this category
-						//var sql = "DELETE FROM item_"+checkListId+" WHERE categoryId=" + categoryId;
+					var sql1 = "DELETE FROM item_"+checkListId+" WHERE categoryId=" + categoryId;
+					
+					tx.executeSql(sql1, null, function (tx, results) {
+						console.log('Items deleted successfully ... Refreshing the collection ...');
 
-					if(successCallback)successCallback();
+						if(successCallback)successCallback();
+					},
+					function (tx, error) {self.errorHandler(error);});
 				},
 				function (tx, error) {self.errorHandler(error);});
 			},
@@ -302,17 +306,104 @@ define(function (require) {
 
 	//Retrieve all the items of a given category and checklist
 	WebSQLStore.prototype.fetchItems =function (checkListId, categoryId, successCallback) {
-		// body...
+		console.log('Retrieving all the items for category ' + categoryId + ' from item_'+checkListId);
+
+		var self = this;
+
+		var data = {};
+		data.array = [];
+		data.checkListId = checkListId;
+		data.categoryId = categoryId;
+
+		this.db.transaction(
+			function (tx) {
+
+				var sql = "SELECT name FROM category_"+checkListId+" WHERE id='"+categoryId+"'";
+				tx.executeSql(sql, null, function (tx, results) {
+					console.log('Retrieving name of category: ' + results.rows.item(0).name);
+					data.categoryName = results.rows.item(0).name;
+
+					var sql1 = "SELECT * FROM item_"+ checkListId+" WHERE categoryId='"+categoryId+"'";
+					tx.executeSql(sql1, null, function (tx, results) {
+						console.log("Retrieving all info on item_"+ checkListId);
+
+						for(var i=0; i<results.rows.length; i++)
+                			data.array.push(results.rows.item(i));
+
+                		console.log(data);
+                		if(successCallback)successCallback(data);
+					},
+					function (tx, error) {self.errorHandler(error);});
+				},
+				function (tx, error) {self.errorHandler(error);});
+			},
+			function (error) {self.errorHandler(error);}
+
+		);
 	};
 
 	//Add a new item to a given category and checklist
 	WebSQLStore.prototype.addItem = function (checkListId, categoryId, itemName, successCallback) {
-		// body...
+		console.log('Adding into checklist: ' + checkListId + ' category: ' + categoryId + ' item: ' + itemName);
+
+		var self = this;
+
+		this.db.transaction(
+			function (tx) {
+				
+				var sql = "INSERT INTO item_"+ checkListId +
+						"(name, checked, checkedDate, categoryId)" +
+						"VALUES (?, ?, ?, ?)";
+
+				tx.executeSql(sql, [itemName, 0, new Date(), categoryId], function (tx, results) {
+					console.log('Added new item successfully! ... Updating category_'+checkListId+' table ...');
+
+					var sql1 = "UPDATE category_"+ checkListId + 
+						" SET totalItems = totalItems + 1 " + 
+						" WHERE id = '" + categoryId + "'";
+
+					tx.executeSql(sql1, null, function (tx,results) {
+						console.log('Updated category table ... Refreshing the collection ...');
+
+						if(successCallback) successCallback();
+					},
+					function (tx, error) {self.errorHandler(error);});
+				},
+				function (tx, error) {self.errorHandler(error);});
+			},
+			function (error) {self.errorHandler(error);}
+		);
 	};
 
 	//Remove an item from a given checklist
-	WebSQLStore.prototype.deleteItem = function (checkListId, itemId, successCallback) {
-		// body...
+	WebSQLStore.prototype.deleteItem = function (checkListId, categoryId, itemId, successCallback) {
+		console.log('Deleting item: ' + itemId + ' from checklist: id = ' + checkListId + ' and category: ' + categoryId);
+
+		var self = this;
+
+		this.db.transaction(
+			function (tx){
+				var sql = "DELETE FROM item_"+checkListId+" WHERE id = :id";
+
+				tx.executeSql(sql, [itemId], function (tx, results){
+					console.log('Item deleted ... Updating the category ...');
+
+					var sql1 = "UPDATE category_"+ checkListId + 
+						" SET totalItems = totalItems - 1 " + 
+						" WHERE id = '" + categoryId + "'";
+
+					tx.executeSql(sql1, null, function (tx,results) {
+						console.log('Updated category table ... Refreshing the collection ...');
+						console.log(results);
+
+						if(successCallback) successCallback();
+					},
+					function (tx, error) {self.errorHandler(error);});
+				},
+				function (tx, error) {self.errorHandler(error);});
+			},
+			function (error) {self.errorHandler(error);}
+		);
 	};
 
 	//Check/Uncheck an item

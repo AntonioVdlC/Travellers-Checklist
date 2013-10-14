@@ -1,26 +1,28 @@
-<div class="checkListNav">
-	<span class="back-button"></span>
-	<span class="checkListName"><%= categories[0].checkListName %></span>
-</div>
+<div id="main">
+	<div class="checkListNav">
+		<span class="back-button"></span>
+		<span class="checkListName"><%= categories[0].checkListName %></span>
+	</div>
 
-<div class="addCategoy">
-	<input type="text" id="add-cat-input" value="New category..."><button class="topcoat-button" id="add-cat-button">Add</button>
-</div>
+	<div class="addCategoy">
+		<input type="text" id="add-cat-input" value="New category..."><button class="topcoat-button" id="add-cat-button">Add</button>
+	</div>
 
-<div class="topcoat-list__container scrollable-cat">
-	<ul class="topcoat-list list">
-	<% _.each(categories[0].array, function(category) { %>
-	    <li class="topcoat-list__item">
-	        <span class="delete-cat" id="<%= category.id %>"></span>
-	        <a href="#checklist/<%= categories[0].checkListId %>/category/<%= category.id %>">
-	        	<span class="cat-name"><%= category.name %></span><br/>
-	        	<span class="cat-items"><%= category.checkedItems %> / <%= category.totalItems %> item(s)</span>
-	        </a>
-	    </li>
-	<% }); %>
-	</ul>
-</div>
+	<div class="topcoat-list__container scrollable-cat">
+		<ul class="topcoat-list list">
+		<% _.each(categories[0].array, function(category) { %>
+		    <li class="topcoat-list__item">
+		        <span class="delete-cat" id="<%= category.id %>"></span>
+		        <a href="#checklist/<%= categories[0].checkListId %>/category/<%= category.id %>">
+		        	<span class="cat-name"><%= category.name %></span><br/>
+		        	<span class="cat-items"><%= category.checkedItems %> / <%= category.totalItems %> item(s)</span>
+		        </a>
+		    </li>
+		<% }); %>
+		</ul>
+	</div>
 
-<div class="footer">
-	<button class="topcoat-button save-model">Save as Model</button>
+	<div class="footer">
+		<button class="topcoat-button save-model">Save as Model</button>
+	</div>
 </div>

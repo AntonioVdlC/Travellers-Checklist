@@ -144,3 +144,77 @@
     width: 42px;
     background: url("../img/delete.svg") no-repeat;
 }
+
+
+/*------------------------------
+ * CATEGORY PAGE
+ *------------------------------*/
+
+/* Category Navigation Bar */
+.categorytNav {
+    height: 3rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;
+}
+
+/* Category Name */
+.categoryName {
+    line-height: 130%;
+    font-size: 2rem;
+}
+
+/* Add Category Bar */
+.addItem {
+    background: #e5e9e8;
+}
+
+/* Add Category Input */
+#add-item-input{
+    width: 70%;
+    line-height: 212%;
+    margin-top: 2px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 1em;
+}
+
+/* Add Category Button */
+#add-item-button {
+    float: right;
+    line-height: 250%;
+    max-width: 25%;
+    margin-top: 1px;
+    margin-right: 5px;
+}
+
+/* Scrollable List Content */
+.scrollable-item {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 170px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+/* Category Name */
+.item-name {
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+/* Items checked */
+.last-checked{
+    font-size: 0.75em;
+}
+
+/* Delete Icon */
+.delete-item{
+    float: right;
+    display: inline-block;
+    height: 42px;
+    width: 42px;
+    background: url("../img/delete.svg") no-repeat;
+}

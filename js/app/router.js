@@ -5,9 +5,11 @@ define(function (require){
 		//Store			= require('app/store/websql-store'),
 		HomeView 		= require('app/views/home.view'),
 		CheckListView	= require('app/views/categoryList.view'),
+		CategoyView 	= require('app/views/itemList.view'),
 
 		homeView = new HomeView({el:$('body')}),
-		checkListView = null;
+		checkListView = null,
+		categoryView = null;
 
 	return Backbone.Router.extend({
 
@@ -28,6 +30,10 @@ define(function (require){
 
 		checkListPage: function (id) {
 			console.log('Routing to CheckList Page: ' + id);
+
+			if(categoryView)
+				categoryView.remove();
+
 			checkListView = new CheckListView({el:$('#mainContent')});
 			
 			checkListView.id = id;
@@ -37,6 +43,12 @@ define(function (require){
 
 		categoryPage: function (clId, catId) {
 			console.log('Routing to Category Page: ' + catId + ' from CheckList: ' + clId);
+			categoryView = new CategoyView({el:$('#main')});
+
+			categoryView.id = catId;
+			categoryView.checkListId = clId;
+
+			categoryView.preRender();
 		}
 	});
 });

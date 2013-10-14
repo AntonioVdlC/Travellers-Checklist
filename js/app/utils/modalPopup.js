@@ -26,6 +26,8 @@ define(function (require){
 			$('.okButton').on('click', {callback: callback}, this.retrieveInput);
 		else if(type == 'delete-cat')
 			$('.okButton').on('click', {id: data.id}, callback);
+		else if(type == 'delete-item')
+			$('.okButton').on('click', {id: data.id}, callback);
 		else
 			$('.okButton').on('click', callback);
 
