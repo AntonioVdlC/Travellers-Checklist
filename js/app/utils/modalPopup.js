@@ -3,7 +3,7 @@ define(function (require){
 	var $ = require('jquery');
 
 	function modalPopup (title, innerHTML, buttonLabels, callback, data, type){
-		console.log('New modal popup: ' + title + ' ' + innerHTML + ' ' + buttonLabels + ' ' + callback + ' ' + data + ' ' + type);
+		//console.log('New modal popup: ' + title + ' ' + innerHTML + ' ' + buttonLabels + ' ' + callback + ' ' + data + ' ' + type);
 
 		//Create the popup and overlay elements
 		$('<div></div>').addClass('modalOverlay').appendTo('body');
@@ -24,6 +24,10 @@ define(function (require){
 			$('.okButton').on('click', {id: data.id}, callback);
 		else if(type == 'new-cl')
 			$('.okButton').on('click', {callback: callback}, this.retrieveInput);
+		else if(type == 'delete-cat')
+			$('.okButton').on('click', {id: data.id}, callback);
+		else if(type == 'delete-item')
+			$('.okButton').on('click', {id: data.id}, callback);
 		else
 			$('.okButton').on('click', callback);
 

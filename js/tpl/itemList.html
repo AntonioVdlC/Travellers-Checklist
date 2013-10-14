@@ -1,0 +1,23 @@
+<div class="categoryNav">
+	<span class="back-button"></span>
+	<span class="categoryName"><%= items[0].categoryName %></span>
+</div>
+
+<div class="addItem">
+	<input type="text" id="add-item-input" value="New item..."><button class="topcoat-button" id="add-item-button">Add</button>
+</div>
+
+<div class="topcoat-list__container scrollable-item">
+	<ul class="topcoat-list list">
+	<% _.each(items[0].array, function(item) { %>
+	    <li class="topcoat-list__item">
+	        <span class="delete-item" id="<%= item.id %>"></span>
+	        <form>
+	        	<input type="checkbox" class="check-item" id="<%= item.id %>">
+	        	<span class="item-name"><%= item.name %></span><br/>
+        		<span class="last-checked">Last checked: <%= item.checkedDate %></span>
+        	</form>
+	    </li>
+	<% }); %>
+	</ul>
+</div>

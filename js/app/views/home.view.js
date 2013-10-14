@@ -13,7 +13,7 @@ define(function (require){
 
 	return Backbone.View.extend({
 
-		el: $('#mainContent'),
+		//el: $('body'),
 
 		initialize: function () {
 			//this.render();
