@@ -12,9 +12,15 @@
 	<% _.each(items[0].array, function(item) { %>
 	    <li class="topcoat-list__item">
 	        <span class="delete-item" id="<%= item.id %>"></span>
-        	<input type="checkbox" class="check-item" id="<%= item.id %>">
-        	<span class="item-name"><%= item.name %></span><br/>
-    		<span class="last-checked">Checked on: <%= item.checkedDate %></span>
+        	<label class="topcoat-checkbox">
+        		<input type="checkbox" class="check-item" id="<%= item.id %>">
+        		<div class="topcoat-checkbox__checkmark"></div>
+        		<span class="item-name"><%= item.name %></span>
+        	</label>
+    		<% if(item.checkedDate != 0) { %>
+    			<br/>
+    			<span class="last-checked">Checked on: <%= item.checkedDate %></span>
+    		<% } %>
 	    </li>
 	<% }); %>
 	</ul>

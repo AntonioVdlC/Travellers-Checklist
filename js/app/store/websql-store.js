@@ -355,7 +355,7 @@ define(function (require) {
 						"(name, checked, checkedDate, categoryId)" +
 						"VALUES (?, ?, ?, ?)";
 
-				tx.executeSql(sql, [itemName, 0, new Date(), categoryId], function (tx, results) {
+				tx.executeSql(sql, [itemName, 0, 0, categoryId], function (tx, results) {
 					console.log('Added new item successfully! ... Updating category_'+checkListId+' table ...');
 
 					var sql1 = "UPDATE category_"+ checkListId + 
