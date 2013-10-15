@@ -13,7 +13,7 @@
 	    <li class="topcoat-list__item">
 	        <span class="delete-item" id="<%= item.id %>"></span>
         	<label class="topcoat-checkbox">
-        		<input type="checkbox" class="check-item" id="<%= item.id %>">
+        		<input type="checkbox" name="check-item_<%= item.id %>" class="check-item" id="<%= item.id %>" <% if(item.checked == 1) { %> checked <% } %>>
         		<div class="topcoat-checkbox__checkmark"></div>
         		<span class="item-name"><%= item.name %></span>
         	</label>

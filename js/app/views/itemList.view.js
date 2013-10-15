@@ -34,7 +34,8 @@ define(function (require){
 			'blur #add-item-input': 'blurInput',
 			'focus #add-item-input': 'focusInput',
 			'click #add-item-button': 'addItem',
-			'click .delete-item': 'deleteItem'
+			'click .delete-item': 'deleteItem',
+			'click .check-item': 'checkItem'
 		},
 
 		blurInput: function (e) {
@@ -63,10 +64,13 @@ define(function (require){
 		deleteItem: function (e) {
 			var self = this;
 			var id = e.currentTarget.id;
-			var itemName = e.currentTarget.nextElementSibling.childNodes[3].innerText;
+			var itemName = e.currentTarget.nextElementSibling.childNodes[5].innerText;
+			var checked = $('input[name=check-item_'+id+']').is(':checked');
 
-			console.log('Delete item: id = '+id+' name = '+itemName);
-			console.log(e);
+			console.log($('input[name=check-item_'+id+']'));
+
+			console.log('Delete item: id = '+id+' name = '+itemName+ ' checked = '+checked);
+			//console.log(e);
 
 			var delWindow = new ModalPopup(
 				'Delete Item', 
@@ -74,7 +78,7 @@ define(function (require){
 				['Cancel', 'OK'],
 				function (e){
 					console.log('Deleting item...');
-					Store.deleteItem(self.checkListId, self.id, id, function(){
+					Store.deleteItem(self.checkListId, self.id, id, checked, function(){
 						self.collection.refresh();
 						delWindow.hide();
 					});
@@ -86,6 +90,20 @@ define(function (require){
 			);
 
 			delWindow.show();
+		},
+
+		checkItem: function (e) {
+			console.log('Check Item ...');
+
+			var self = this;
+			var id = e.currentTarget.id;
+			var checked = e.currentTarget.checked;
+
+			console.log(id + ' - ' + checked);
+
+			Store.updateItemStatus(this.checkListId, this.id, id, checked, function () {
+				self.collection.refresh();
+			});
 		}
 	});
 });

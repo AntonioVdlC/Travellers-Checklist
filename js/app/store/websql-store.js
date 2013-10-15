@@ -376,7 +376,7 @@ define(function (require) {
 	};
 
 	//Remove an item from a given checklist
-	WebSQLStore.prototype.deleteItem = function (checkListId, categoryId, itemId, successCallback) {
+	WebSQLStore.prototype.deleteItem = function (checkListId, categoryId, itemId, checked, successCallback) {
 		console.log('Deleting item: ' + itemId + ' from checklist: id = ' + checkListId + ' and category: ' + categoryId);
 
 		var self = this;
@@ -389,8 +389,14 @@ define(function (require) {
 					console.log('Item deleted ... Updating the category ...');
 
 					var sql1 = "UPDATE category_"+ checkListId + 
-						" SET totalItems = totalItems - 1 " + 
+						" SET totalItems = totalItems - 1 " +
 						" WHERE id = '" + categoryId + "'";
+						
+					if(checked)
+						sql1 = "UPDATE category_"+ checkListId + 
+							" SET totalItems = totalItems - 1 " +
+								 ", checkedItems = checkedItems - 1 " + 
+							" WHERE id = '" + categoryId + "'";
 
 					tx.executeSql(sql1, null, function (tx,results) {
 						console.log('Updated category table ... Refreshing the collection ...');
@@ -407,8 +413,43 @@ define(function (require) {
 	};
 
 	//Check/Uncheck an item
-	WebSQLStore.prototype.updateItemStatus = function (checkListId, itemId, successCallback) {
-		// body...
+	WebSQLStore.prototype.updateItemStatus = function (checkListId, categoryId, itemId, checked, successCallback) {
+		console.log('Updating item status ...');
+
+		var self = this;
+
+		var itemChecked = 0;
+		if(checked) itemChecked = 1;
+
+		this.db.transaction(
+			function (tx) {
+				var sql = "UPDATE item_"+checkListId +
+					" SET checked = " + itemChecked +
+					" , checkedDate = ? "+ 
+					" WHERE id = '" + itemId + "'";
+
+				tx.executeSql(sql, [new Date()], function (tx, results) {
+					console.log('Item status updated ... Updating number of checkItems in category_' + checkListId);
+
+					var sql1 = "UPDATE category_"+ checkListId + 
+						" SET checkedItems = checkedItems - 1 " + 
+						" WHERE id = '" + categoryId + "'";
+					if(checked)
+						sql1 = "UPDATE category_"+ checkListId + 
+							" SET checkedItems = checkedItems + 1 " + 
+							" WHERE id = '" + categoryId + "'";
+
+					tx.executeSql(sql1, null, function (tx, results) {
+						console.log('Updated number of checkItems ... Refreshing the collection ...');
+
+						if(successCallback) successCallback();
+					},
+					function (tx, error) {self.errorHandler(error);});
+				},
+				function (tx, error) {self.errorHandler(error);});
+			},
+			function (error) {self.errorHandler(error);}
+		);
 	};
 
 
