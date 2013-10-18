@@ -7,6 +7,7 @@
     line-height: 160%;
 }
 
+
 /*------------------------------
  * HOME PAGE
  *------------------------------*/
@@ -93,21 +94,20 @@
 
 /* Add Category Input */
 #add-cat-input{
-    width: 70%;
+    width: 71%;
     line-height: 212%;
-    margin-top: 2px;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-left: 1%;
     font-size: 1em;
 }
 
 /* Add Category Button */
 #add-cat-button {
     float: right;
-    line-height: 250%;
+    line-height: 245%;
+    width: 200%;
     max-width: 25%;
     margin-top: 1px;
-    margin-right: 5px;
+    margin-right: 1%;
 }
 
 /* Scrollable List Content */
@@ -171,21 +171,20 @@
 
 /* Add Category Input */
 #add-item-input{
-    width: 70%;
+    width: 71%;
     line-height: 212%;
-    margin-top: 2px;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-left: 1%;
     font-size: 1em;
 }
 
 /* Add Category Button */
 #add-item-button {
     float: right;
-    line-height: 250%;
+    line-height: 245%;
+    width: 200%;
     max-width: 25%;
     margin-top: 1px;
-    margin-right: 5px;
+    margin-right: 1%;
 }
 
 /* Scrollable List Content */
