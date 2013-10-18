@@ -31,10 +31,8 @@ define(function (require){
 		checkListPage: function (id) {
 			console.log('Routing to CheckList Page: ' + id);
 
-			if(categoryView){
+			if(categoryView)
 				categoryView.remove();
-				$('body').append('<div id="mainContent"></div>');
-			}
 
 			if(checkListView){
 				checkListView.remove();
