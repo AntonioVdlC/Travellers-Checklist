@@ -1,6 +1,6 @@
 var lang = {
 //A
-	"add": "Add",
+	"add": "+",
 //B
 	"blank": "Blank",
 //C
@@ -14,7 +14,9 @@ var lang = {
 //D
 	"default": "Default",
 	"delete": "Delete",
-	"deleteConfirm": "Are you sure you want to delete the ",
+	"deleteConfirmCat": "Are you sure you want to delete the ",
+	"deleteConfirmCL": "Are you sure you want to delete the ",
+	"deleteConfirmItem": "Are you sure you want to delete the ",
 //E
 //F
 //G
@@ -36,7 +38,9 @@ var lang = {
 	"name": "Name",
 	"nameUnique": "The name must be unique within the app.",
 	"new": "New",
+	"newCategory": "New category...",
 	"newChecklist": "New Checklist",
+	"newItem": "New item...",
 //O
 	"OK": "OK",
 //P
