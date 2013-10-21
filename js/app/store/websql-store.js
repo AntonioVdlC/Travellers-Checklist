@@ -20,13 +20,18 @@ define(function (require) {
 		this.db.transaction(
             function (tx) {
                 self.createCLTable(tx);
-                //self.addSampleData(tx); //FOR TESTING PURPOSES
             },
             function (error) {self.errorHandler(error);},
             function () {console.log('Transaction success');}
         );
 	};
 
+	//Error handler
+	WebSQLStore.prototype.errorHandler = function (error) {
+		alert("Transation Error: " + error.message);
+		console.log(error);
+	};
+	
 	//Creates a table for the CheckLists
 	WebSQLStore.prototype.createCLTable = function (tx) {
 		//tx.executeSql('DROP TABLE IF EXISTS checklist');
@@ -38,70 +43,10 @@ define(function (require) {
             		"name VARCHAR(50), " +
             		"lastModified DATE)";
 
-        tx.executeSql(sql, null,
-            function () {
-                console.log('Create checklist table success');
-            },
-            function (tx, error) {self.errorHandler(error);}
-        );
-	};
-
-	//Error handler
-	WebSQLStore.prototype.errorHandler = function (error) {
-		alert("Transation Error: " + error.message);
-		console.log(error);
-	};
-
-	// DATA FOR TESTING PURPOSES
-	WebSQLStore.prototype.addSampleData = function(tx) {
-
-		var self = this;
-
-		var checklist = [
-                {"id": 0, "name": "CheckList Paris", "lastModified": new Date()},
-                {"id": 1, "name": "Week-end @ London", "lastModified": new Date()},
-                {"id": 2, "name": "St.Petersburg", "lastModified": new Date()},
-                {"id": 3, "name": "Xmas Road Trip", "lastModified": new Date()},
-                {"id": 4, "name": "Valladolid", "lastModified": new Date()}
-            ];
-        var l = checklist.length;
-        var sql = "INSERT OR REPLACE INTO checklist " +
-            "(id, name, lastModified) " +
-            "VALUES (?, ?, ?)";
-        var e;
-        for (var i = 0; i < l; i++) {
-            e = checklist[i];
-            tx.executeSql(sql, [e.id, e.name, e.lastModified],
-                    function() {
-                        console.log('INSERT success');
-                    },
-                    function (tx, error) {self.errorHandler(error);});
-            var sql1 = "CREATE TABLE IF NOT EXISTS category_"+ i +" ( " +
-            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            		"name VARCHAR(50))";
-
-	        tx.executeSql(sql1, null,
-	            function() {
-	                console.log('Create category_'+i+' table success');
-	            },
-	            function (tx, error) {self.errorHandler(error);}
-	        );
-
-	        var sql2 = "CREATE TABLE IF NOT EXISTS item_"+ i +" ( " +
-            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            		"name VARCHAR(50), " +
-            		"checked INTEGER(2)," +
-            		"checkedDate DATE," +
-            		"categoryId INTEGER)";
-
-	        tx.executeSql(sql2, null,
-	            function () {
-	                console.log('Create item_'+i+' table success');
-	            },
-	            function (tx, error) {self.errorHandler(error);}
-	        );
-        }
-
+        tx.executeSql(sql, null, function (tx, results) {
+            console.log('Create checklist table success');
+        },
+        function (tx, error) {self.errorHandler(error);});
 	};
 
 	//Retrieve all the checklists from the checklist table
@@ -115,9 +60,9 @@ define(function (require) {
 		this.db.transaction(
             function (tx) {
 
-                var sql = "SELECT * FROM checklist";
+                var sql = "SELECT * FROM checklist ORDER BY lastModified DESC";
 
-                tx.executeSql(sql, [], function (tx, results) {
+                tx.executeSql(sql, null, function (tx, results) {
                 	for(var i=0; i<results.rows.length; i++)
                 		data.push(results.rows.item(i));
 
@@ -145,11 +90,11 @@ define(function (require) {
 
 					var sql1 = "DROP TABLE IF EXISTS category_"+id;
 
-					tx.executeSql(sql1, [], function (tx, results){
+					tx.executeSql(sql1, null, function (tx, results){
 						
 						var sql2 = "DROP TABLE IF EXISTS item_"+id;
 
-						tx.executeSql(sql2, [], function (tx, results){
+						tx.executeSql(sql2, null, function (tx, results){
 							console.log('Tables dropped ... Refreshing the collection ...');
 							if(successCallback)successCallback();
 						},
@@ -216,6 +161,29 @@ define(function (require) {
 		);
 	};
 
+	//Update last modified date
+	WebSQLStore.prototype.updateLastModifiedDate = function (checkListId, successCallback) {
+		console.log('Updating lastModified date on checklist id = ' + checkListId + '...');
+
+		var self = this;
+
+		this.db.transaction(
+			function (tx) {
+				
+				var sql = "UPDATE checklist " +
+						"SET lastModified = ? " +
+						"WHERE id = '" + checkListId + "'";
+
+				tx.executeSql(sql, [new Date()], function (tx, results) {
+					console.log('Last modified date updated ... Refreshing the collection ...');
+
+					if(successCallback) successCallback();
+				},
+				function (tx, error) {self.errorHandler(error);});
+			},
+			function (error) {self.errorHandler(error);}
+		);
+	};
 
 	//Retrieve all the categores from a given checklist
 	WebSQLStore.prototype.fetchCategories = function (checkListId, successCallback) {
@@ -242,7 +210,7 @@ define(function (require) {
 						for(var i=0; i<results.rows.length; i++)
                 			data.array.push(results.rows.item(i));
 
-                		console.log(data);
+                		//console.log(data);
                 		if(successCallback)successCallback(data);
 					},
 					function (tx, error) {self.errorHandler(error);});
@@ -267,8 +235,10 @@ define(function (require) {
 						"VALUES (?, ?, ?)";
 
 				tx.executeSql(sql, [categoryName, 0, 0], function (tx, results) {
-					console.log('Added new category successfully! ... Refreshing the collection ...');
-					if(successCallback) successCallback();
+					console.log('Added new category successfully! ...');
+					//if(successCallback) successCallback();
+
+					self.updateLastModifiedDate(checkListId, successCallback);
 				},
 				function (tx, error) {self.errorHandler(error);});
 			},
@@ -292,9 +262,11 @@ define(function (require) {
 					var sql1 = "DELETE FROM item_"+checkListId+" WHERE categoryId=" + categoryId;
 					
 					tx.executeSql(sql1, null, function (tx, results) {
-						console.log('Items deleted successfully ... Refreshing the collection ...');
+						console.log('Items deleted successfully ...');
 
-						if(successCallback)successCallback();
+						//if(successCallback)successCallback();
+
+						self.updateLastModifiedDate(checkListId, successCallback);
 					},
 					function (tx, error) {self.errorHandler(error);});
 				},
@@ -363,9 +335,11 @@ define(function (require) {
 						" WHERE id = '" + categoryId + "'";
 
 					tx.executeSql(sql1, null, function (tx,results) {
-						console.log('Updated category table ... Refreshing the collection ...');
+						console.log('Updated category table ...');
 
-						if(successCallback) successCallback();
+						//if(successCallback) successCallback();
+
+						self.updateLastModifiedDate(checkListId, successCallback);
 					},
 					function (tx, error) {self.errorHandler(error);});
 				},
@@ -399,10 +373,12 @@ define(function (require) {
 							" WHERE id = '" + categoryId + "'";
 
 					tx.executeSql(sql1, null, function (tx,results) {
-						console.log('Updated category table ... Refreshing the collection ...');
-						console.log(results);
+						console.log('Updated category table ...');
+						//console.log(results);
 
-						if(successCallback) successCallback();
+						//if(successCallback) successCallback();
+
+						self.updateLastModifiedDate(checkListId, successCallback);
 					},
 					function (tx, error) {self.errorHandler(error);});
 				},
@@ -440,9 +416,11 @@ define(function (require) {
 							" WHERE id = '" + categoryId + "'";
 
 					tx.executeSql(sql1, null, function (tx, results) {
-						console.log('Updated number of checkItems ... Refreshing the collection ...');
+						console.log('Updated number of checkItems ...');
 
-						if(successCallback) successCallback();
+						//if(successCallback) successCallback();
+
+						self.updateLastModifiedDate(checkListId, successCallback);
 					},
 					function (tx, error) {self.errorHandler(error);});
 				},
