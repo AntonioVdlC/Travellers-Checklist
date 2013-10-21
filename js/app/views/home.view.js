@@ -38,7 +38,7 @@ define(function (require){
 
 			var delWindow = new ModalPopup(
 				lang.delete+' '+lang.Checklist, 
-				'<p>' + lang.deleteConfirm + ' ' + lang.checklist + ' "' + clName + '"?</p>', 
+				'<p>' + lang.deleteConfirmCL + lang.checklist + ' "' + clName + '"?</p>', 
 				[lang.cancel, lang.OK],
 				function (e){
 					console.log('Deleting checklist...');

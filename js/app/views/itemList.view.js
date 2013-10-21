@@ -40,18 +40,18 @@ define(function (require){
 
 		blurInput: function (e) {
 			if($('#add-item-input').val() == '')
-				$('#add-item-input').val(lang.new + ' ' + lang.item + '...');
+				$('#add-item-input').val(lang.newItem);
 		},
 
 		focusInput: function (e) {
-			if($('#add-item-input').val() == lang.new + ' ' + lang.item + '...')
+			if($('#add-item-input').val() == lang.newItem)
 				$('#add-item-input').val('');
 		},
 
 		addItem: function (e) {
 			console.log('New item');
 
-			if($('#add-item-input').val() == '' || $('#add-item-input').val() == lang.new + ' ' + lang.item + '...')
+			if($('#add-item-input').val() == '' || $('#add-item-input').val() == lang.newItem)
 				return;
 
 			var self = this;
@@ -74,7 +74,7 @@ define(function (require){
 
 			var delWindow = new ModalPopup(
 				lang.delete+' '+lang.Item, 
-				'<p>' + lang.deleteConfirm + ' ' + lang.item + ' "' + itemName + '"?</p>', 
+				'<p>' + lang.deleteConfirmItem + lang.item + ' "' + itemName + '"?</p>', 
 				[lang.cancel, lang.OK],
 				function (e){
 					console.log('Deleting item...');
