@@ -4,7 +4,7 @@
         <span class="delete-cl" id="<%= checklist.id %>"></span>
         <a href="#checklist/<%= checklist.id %>">
         	<span class="cl-name"><%= checklist.name %></span><br/>
-        	<span class="last-modified">Last modified: <%= checklist.lastModified %></span>
+        	<span class="last-modified"><% print(lang.lastModified) %><%= checklist.lastModified %></span>
         </a>
     </li>
 <% }); %>

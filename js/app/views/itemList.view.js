@@ -40,18 +40,18 @@ define(function (require){
 
 		blurInput: function (e) {
 			if($('#add-item-input').val() == '')
-				$('#add-item-input').val('New item...');
+				$('#add-item-input').val(lang.new + ' ' + lang.item + '...');
 		},
 
 		focusInput: function (e) {
-			if($('#add-item-input').val() == 'New item...')
+			if($('#add-item-input').val() == lang.new + ' ' + lang.item + '...')
 				$('#add-item-input').val('');
 		},
 
 		addItem: function (e) {
 			console.log('New item');
 
-			if($('#add-item-input').val() == '' || $('#add-item-input').val() == 'New item...')
+			if($('#add-item-input').val() == '' || $('#add-item-input').val() == lang.new + ' ' + lang.item + '...')
 				return;
 
 			var self = this;
@@ -67,15 +67,15 @@ define(function (require){
 			var itemName = e.currentTarget.nextElementSibling.childNodes[5].innerText;
 			var checked = $('input[name=check-item_'+id+']').is(':checked');
 
-			console.log($('input[name=check-item_'+id+']'));
+			//console.log($('input[name=check-item_'+id+']'));
 
 			console.log('Delete item: id = '+id+' name = '+itemName+ ' checked = '+checked);
 			//console.log(e);
 
 			var delWindow = new ModalPopup(
-				'Delete Item', 
-				'<p>Are you sure you want to delete the item "' + itemName + '"?</p>', 
-				['Cancel', 'OK'],
+				lang.delete+' '+lang.Item, 
+				'<p>' + lang.deleteConfirm + ' ' + lang.item + ' "' + itemName + '"?</p>', 
+				[lang.cancel, lang.OK],
 				function (e){
 					console.log('Deleting item...');
 					Store.deleteItem(self.checkListId, self.id, id, checked, function(){

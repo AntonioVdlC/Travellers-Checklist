@@ -39,18 +39,18 @@ define(function (require){
 
 		blurInput: function (e) {
 			if($('#add-cat-input').val() == '')
-				$('#add-cat-input').val('New category...');
+				$('#add-cat-input').val(lang.new + ' ' + lang.category + '...');
 		},
 
 		focusInput: function (e) {
-			if($('#add-cat-input').val() == 'New category...')
+			if($('#add-cat-input').val() == lang.new + ' ' + lang.category + '...')
 				$('#add-cat-input').val('');
 		},
 
 		addCategory: function (e) {
 			console.log('New category');
 
-			if($('#add-cat-input').val() == '' || $('#add-cat-input').val() == 'New category...')
+			if($('#add-cat-input').val() == '' || $('#add-cat-input').val() == lang.new + ' ' + lang.category + '...')
 				return;
 
 			var self = this;
@@ -68,9 +68,9 @@ define(function (require){
 			console.log('Delete category: id = '+id+' name = '+catName);
 
 			var delWindow = new ModalPopup(
-				'Delete Category', 
-				'<p>Are you sure you want to delete the category "' + catName + '"?</p>', 
-				['Cancel', 'OK'],
+				lang.delete+' '+lang.Category, 
+				'<p>' + lang.deleteConfirm + ' ' + lang.category + ' "' + catName + '"?</p>', 
+				[lang.cancel, lang.OK],
 				function (e){
 					console.log('Deleting checklist...');
 					Store.deleteCategory(self.id, id, function(){
