@@ -2,6 +2,7 @@ define(function (require) {
 	
 	var $			= require('jquery'),
 		Backbone	= require('backbone'),
+		DateParser	= require('app/utils/dateParser'),
 		Store		= require('app/store/websql-store'),
 
 		Item = Backbone.Model.extend({
@@ -31,7 +32,24 @@ define(function (require) {
 				var self = this;
 				
 				Store.fetchItems(this.checkListId, this.id, function(data){
-					self.reset(data);
+					var parsedData = {};
+					parsedData.array = [];
+					
+					parsedData.checkListId = data.checkListId;
+					parsedData.categoryId = data.categoryId;
+					parsedData.categoryName = data.categoryName;
+
+					data.array.forEach(function (element, index, array) {
+						parsedData.array.push({
+							'id': element.id,
+							'name': element.name,
+							'checked': element.checked,
+							'checkedDate': DateParser(element.checkedDate),
+							'categoryId': element.categoryId
+						});
+					});
+					
+					self.reset(parsedData);
 				});
 			}
 		});

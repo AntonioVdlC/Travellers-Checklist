@@ -2,6 +2,7 @@ define(function (require) {
 	
 	var $			= require('jquery'),
 		Backbone	= require('backbone'),
+		DateParser	= require('app/utils/dateParser'),
 		Store		= require('app/store/websql-store'),
 
 		CheckList = Backbone.Model.extend({
@@ -29,7 +30,17 @@ define(function (require) {
 				var self = this;
 				
 				Store.fetchCheckLists(function(data){
-					self.reset(data);
+					var parsedData = [];
+
+					data.forEach(function (element, index, array) {
+						parsedData.push({
+							'id': element.id,
+							'name': element.name,
+							'lastModified': DateParser(element.lastModified)
+						});
+					});
+					
+					self.reset(parsedData);
 				});
 			}
 		});

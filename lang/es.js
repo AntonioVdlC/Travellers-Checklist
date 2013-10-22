@@ -47,7 +47,7 @@ var lang = {
 //Q
 //R
 //S
-	"saveModel": "Guardar como Modelo"
+	"saveModel": "Guardar como Modelo",
 //T
 //U
 //V
@@ -57,4 +57,25 @@ var lang = {
 //Z
 //1-9
 //#
+//Calendar
+	"Mon": "Lunes",
+	"Tue": "Martes",
+	"Wed": "Miercoles",
+	"Thu": "Jueves",
+	"Fri": "Viernes",
+	"Sat": "Sabado",
+	"Sun": "Domingo",
+
+	"Jan": "Enero",
+	"Feb": "Febrero",
+	"Mar": "Marzo",
+	"Apr": "Abril",
+	"May": "Mayo",
+	"Jun": "Junio",
+	"Jul": "Julio",
+	"Aug": "Agosto",
+	"Sep": "Septiembre",
+	"Oct": "Octubre",
+	"Nov": "Noviembre",
+	"Dec": "Diciembre"
 };
