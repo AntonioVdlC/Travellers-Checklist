@@ -9,7 +9,8 @@ define(function (require){
 		CheckListView	= require('app/views/checkList.view'),
 		tpl				= require('text!tpl/homePage.html'),
 
-		template = _.template(tpl);
+		template = _.template(tpl),
+		newCLTpl = _.template(NewCheckListTpl);
 
 	return Backbone.View.extend({
 
@@ -36,9 +37,9 @@ define(function (require){
 			var clName = e.currentTarget.nextSibling.nextSibling.firstElementChild.innerText;
 
 			var delWindow = new ModalPopup(
-				'Delete CheckList', 
-				'<p>Are you sure you want to delete the checklist "' + clName + '"?</p>', 
-				['Cancel', 'OK'],
+				lang.delete+' '+lang.Checklist, 
+				'<p>' + lang.deleteConfirmCL + lang.checklist + ' "' + clName + '"?</p>', 
+				[lang.cancel, lang.OK],
 				function (e){
 					console.log('Deleting checklist...');
 					Store.deleteCheckList(e.data.id, function(){
@@ -61,9 +62,9 @@ define(function (require){
 			var self = this;
 
 			var newWindow = new ModalPopup(
-				'New CheckList',
-				NewCheckListTpl,
-				['Cancel', 'Create'],
+				lang.new+' '+lang.Checklist,
+				newCLTpl(),
+				[lang.cancel, lang.create],
 				function (name, model){
 					console.log('Creating new checklist: ' + name + ' - ' + model);
 					if(name != '')

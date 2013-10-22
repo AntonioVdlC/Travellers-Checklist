@@ -4,7 +4,7 @@
 </div>
 
 <div class="addItem">
-	<input type="text" id="add-item-input" value="New item..."><button class="topcoat-button" id="add-item-button">Add</button>
+	<input type="text" id="add-item-input" value="<%print(lang.newItem)%>"><button class="topcoat-button" id="add-item-button"><% print(lang.add) %></button>
 </div>
 
 <div class="topcoat-list__container scrollable-item">
@@ -17,9 +17,9 @@
         		<div class="topcoat-checkbox__checkmark"></div>
         		<span class="item-name"><%= item.name %></span>
         	</label>
-    		<% if(item.checkedDate != 0) { %>
+    		<% if(item.checkedDate != 0 && item.checked == 1) { %>
     			<br/>
-    			<span class="last-checked">Checked on: <%= item.checkedDate %></span>
+    			<span class="last-checked"><% print(lang.checkedOn) %>: <%= item.checkedDate %></span>
     		<% } %>
 	    </li>
 	<% }); %>

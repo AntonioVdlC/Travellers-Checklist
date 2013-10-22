@@ -5,8 +5,8 @@
 </div>
 <div id="mainContent">
 	<div id="introText">
-		<p class="center">Welcome to Traveller's CheckList!<br/>
-			You can easily manage your check lists before going on a trip, so you will never again forget a thing!
+		<p class="center">
+			<% print(lang.introText) %>
 		</p>
 	</div>
 
@@ -14,6 +14,6 @@
 	</div>
 
 	<div class="footer">
-		<button class="topcoat-button new-cl">+ New CheckList</button>
+		<button class="topcoat-button new-cl">+ <% print(lang.newChecklist) %></button>
 	</div>
 </div>

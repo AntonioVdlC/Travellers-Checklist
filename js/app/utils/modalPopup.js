@@ -89,7 +89,24 @@ define(function (require){
 		console.log($('#name-cl').val());
 		console.log($('#model-cl').val());*/
 
-		e.data.callback ($('#name-cl').val(), $('#model-cl').val());
+		var testArray = [];
+		var uniqueName = true;
+
+		var clName = $('.cl-name');
+
+		for(var i=0; i<clName.length; i++)
+			testArray.push(clName[i].innerText);
+
+		testArray.some(function (element) {
+			if($('#name-cl').val() == element){
+				$('.hint').css('visibility', 'visible');
+				uniqueName = false;
+				return true;
+			}
+		});
+
+		if(uniqueName)
+			e.data.callback ($('#name-cl').val(), $('#model-cl').val());
 	};
 
 	return modalPopup;

@@ -9,6 +9,17 @@
         <link rel="stylesheet" type="text/css" href="css/modalPopup.css" />
         <link rel="stylesheet" type="text/css" href="css/topcoat-mobile-light.min.css" />
 
+        <script type="text/javascript">
+            console.log('Loading strings for lang: ' + navigator.language);
+
+            if(navigator.language == 'fr')
+                document.write('<script type="text/javascript" src="lang/fr.js"><\/script>');
+            else if(navigator.language == 'es')
+                document.write('<script type="text/javascript" src="lang/es.js"><\/script>');
+            else
+                document.write('<script type="text/javascript" src="lang/en.js"><\/script>');
+        </script>
+
         <script data-main="js/app.js" src="js/lib/require.js"></script>
 
         <title>Traveller's CheckList</title>

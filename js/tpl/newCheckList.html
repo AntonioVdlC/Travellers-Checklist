@@ -1,15 +1,15 @@
 <p class="label">
-	Name:
+	<% print(lang.name) %>:
 </p>
 <input type="text" id="name-cl">
 <p class="hint">
-	¨The name must be unique within the app.
+	<% print(lang.nameUnique) %>
 </p>
 
 <p class="label">
-	Model:
+	<% print(lang.Model) %>:
 </p>
 <select id="model-cl">
-	<option value="0">Blank</option>
-	<option value="1">Default</option>
+	<option value="0"><% print(lang.blank) %></option>
+	<option value="1"><% print(lang.default) %></option>
 </select>
