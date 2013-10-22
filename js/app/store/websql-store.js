@@ -20,6 +20,7 @@ define(function (require) {
 		this.db.transaction(
             function (tx) {
                 self.createCLTable(tx);
+                self.createModelTable(tx);
             },
             function (error) {self.errorHandler(error);},
             function () {console.log('Transaction success');}
@@ -30,6 +31,170 @@ define(function (require) {
 	WebSQLStore.prototype.errorHandler = function (error) {
 		alert("Transation Error: " + error.message);
 		console.log(error);
+	};
+
+	//Creates a table for the Models
+	WebSQLStore.prototype.createModelTable = function (tx) {
+		//tx.executeSql('DROP TABLE IF EXISTS model');
+
+		var self = this;
+        
+        var sql = "CREATE TABLE IF NOT EXISTS model ( " +
+            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            		"name VARCHAR(50))";
+
+        tx.executeSql(sql, null, function (tx, results) {
+            console.log('Create model table success');
+            console.log(results);
+
+            self.createDefaultModel(tx);
+        },
+        function (tx, error) {self.errorHandler(error);});
+	};
+
+	//Adds the sample models Blank and Default
+	WebSQLStore.prototype.createDefaultModel = function (tx) {
+		var self = this;
+		
+        var sql = "INSERT OR REPLACE INTO model (id, name) VALUES (?, ?)";
+        tx.executeSql(sql, [1, "Default"], function (tx, results) {
+
+        },
+    	function (tx, error) {self.errorHandler(error);});
+
+		var sql = "CREATE TABLE IF NOT EXISTS category_model_1 ( "+
+				"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				"name VARCHAR(50), " +
+				"totalItems INTEGER)";
+		
+		tx.executeSql(sql, null, function (tx, results) {
+			
+			var sql1 = "CREATE TABLE IF NOT EXISTS item_model_1 ( " +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+				"name VARCHAR(50), " +
+				"categoryId INTEGER)";
+
+			tx.executeSql(sql1, null, function (tx, results) {
+				self.addDefaultCategories(tx);
+				self.addDefaultItems(tx);
+			},
+        	function (tx, error) {self.errorHandler(error);});
+		},
+        function (tx, error) {self.errorHandler(error);});
+	};
+
+	//Adds default categories to the Default model
+	WebSQLStore.prototype.addDefaultCategories = function(tx) {
+		var defaultCategories = [
+        	{'id': 1, 'name': 'Electronics', 'totalItems': 7,},
+        	{'id': 2, 'name': 'Clothes', 'totalItems': 13,},
+        	{'id': 3, 'name': 'Toiletry', 'totalItems': 6,},
+        	{'id': 4, 'name': 'Medical Kit', 'totalItems': 9,},
+        	{'id': 5, 'name': 'Vaccines', 'totalItems': 12,},
+        	{'id': 6, 'name': 'Paperwork', 'totalItems': 6,},
+        	{'id': 7, 'name': 'Essentials', 'totalItems': 9,},
+        	{'id': 8, 'name': 'Others', 'totalItems': 1,}
+        ];
+        var l = defaultCategories.length;
+        var sql = "INSERT OR REPLACE INTO category_model_1 " +
+            "(id, name, totalItems) " +
+            "VALUES (?, ?, ?)";
+        var cat;
+        for (var i = 0; i < l; i++) {
+            cat = defaultCategories[i];
+            tx.executeSql(sql, [cat.id, cat.name, cat.totalItems], function (tx, results) {
+                console.log('INSERT success');
+            },
+        	function (tx, error) {self.errorHandler(error);});
+        }
+	};
+
+	//Adds default items to the Default model
+	WebSQLStore.prototype.addDefaultItems = function(tx) {
+		var defaultItems = [
+        	{'id': 1, 'name': 'Mobile', 'categoryId': 1,},
+        	{'id': 2, 'name': 'Laptop', 'categoryId': 1,},
+        	{'id': 3, 'name': 'Tablet', 'categoryId': 1,},
+        	{'id': 4, 'name': 'Camera', 'categoryId': 1,},
+        	{'id': 5, 'name': 'Memory Card', 'categoryId': 1,},
+        	{'id': 6, 'name': 'Multi Plug', 'categoryId': 1,},
+        	{'id': 7, 'name': 'Chargers', 'categoryId': 1,},
+
+        	{'id': 8, 'name': 'T-shirts', 'categoryId': 2,},
+        	{'id': 9, 'name': 'Pants', 'categoryId': 2,},
+        	{'id': 10, 'name': 'Bermudas', 'categoryId': 2,},
+        	{'id': 11, 'name': 'Socks', 'categoryId': 2,},
+        	{'id': 12, 'name': 'Underwear', 'categoryId': 2,},
+        	{'id': 13, 'name': 'Pijamas', 'categoryId': 2,},
+        	{'id': 14, 'name': 'Towel', 'categoryId': 2,},
+        	{'id': 15, 'name': 'Belt', 'categoryId': 2,},
+        	{'id': 16, 'name': 'Shoes', 'categoryId': 2,},
+        	{'id': 17, 'name': 'Swimsuit', 'categoryId': 2,},
+        	{'id': 18, 'name': 'Jacket', 'categoryId': 2,},
+        	{'id': 19, 'name': 'Cap', 'categoryId': 2,},
+        	{'id': 20, 'name': 'Scarf', 'categoryId': 2,},
+
+        	{'id': 21, 'name': 'Soap', 'categoryId': 3,},
+        	{'id': 22, 'name': 'Shampoo', 'categoryId': 3,},
+        	{'id': 23, 'name': 'Toothbrush', 'categoryId': 3,},
+        	{'id': 24, 'name': 'Toothpaste', 'categoryId': 3,},
+        	{'id': 25, 'name': 'Deodorant', 'categoryId': 3,},
+        	{'id': 26, 'name': 'Cosmetics', 'categoryId': 3,},
+
+        	{'id': 27, 'name': 'Antiseptic Cream', 'categoryId': 4,},
+        	{'id': 28, 'name': 'Bandages', 'categoryId': 4,},
+        	{'id': 29, 'name': 'Paracetamol', 'categoryId': 4,},
+        	{'id': 30, 'name': 'Antihistaminic', 'categoryId': 4,},
+        	{'id': 31, 'name': 'Phloroglucinol', 'categoryId': 4,},
+        	{'id': 32, 'name': 'Antidiarrhoeal', 'categoryId': 4,},
+        	{'id': 33, 'name': 'Antiemetic', 'categoryId': 4,},
+        	{'id': 34, 'name': 'Laxative', 'categoryId': 4,},
+        	{'id': 35, 'name': '1st Aid Kit', 'categoryId': 4,},
+
+        	{'id': 36, 'name': 'Hepatitis A', 'categoryId': 5,},
+        	{'id': 37, 'name': 'Hepatitis B', 'categoryId': 5,},
+        	{'id': 38, 'name': 'Influenza', 'categoryId': 5,},
+        	{'id': 39, 'name': 'Japanese Encephalitis', 'categoryId': 5,},
+        	{'id': 40, 'name': 'Poliomyelitis', 'categoryId': 5,},
+        	{'id': 41, 'name': 'Rabies', 'categoryId': 5,},
+        	{'id': 42, 'name': 'Yellow Fever', 'categoryId': 5,},
+        	{'id': 43, 'name': 'Tetanus', 'categoryId': 5,},
+        	{'id': 44, 'name': 'Diphtheria', 'categoryId': 5,},
+        	{'id': 45, 'name': 'Tuberculosis', 'categoryId': 5,},
+        	{'id': 46, 'name': 'Typhoid Fever', 'categoryId': 5,},
+        	{'id': 47, 'name': 'Cholera', 'categoryId': 5,},
+
+        	{'id': 48, 'name': 'Passport', 'categoryId': 6,},
+        	{'id': 49, 'name': 'Visas', 'categoryId': 6,},
+        	{'id': 50, 'name': 'Plane/Train Tickets', 'categoryId': 6,},
+        	{'id': 51, 'name': 'Insurrance', 'categoryId': 6,},
+        	{'id': 52, 'name': 'Driving License', 'categoryId': 6,},
+        	{'id': 53, 'name': 'Photocopies', 'categoryId': 6,},
+
+        	{'id': 54, 'name': 'Adapter', 'categoryId': 7,},
+        	{'id': 55, 'name': 'Flashlight', 'categoryId': 7,},
+        	{'id': 56, 'name': 'Sleeping Bag', 'categoryId': 7,},
+        	{'id': 57, 'name': 'Swiss Army Knife', 'categoryId': 7,},
+        	{'id': 58, 'name': 'Alarm Clock', 'categoryId': 7,},
+        	{'id': 59, 'name': 'Compass', 'categoryId': 7,},
+        	{'id': 60, 'name': 'Lighter', 'categoryId': 7,},
+        	{'id': 61, 'name': 'Gourd', 'categoryId': 7,},
+        	{'id': 62, 'name': 'Lock', 'categoryId': 7,},
+
+        	{'id': 63, 'name': 'Lucky Charms', 'categoryId': 8,}
+        ];
+        var l = defaultItems.length;
+        var sql = "INSERT OR REPLACE INTO item_model_1 " +
+            "(id, name, categoryId) " +
+            "VALUES (?, ?, ?)";
+        var item;
+        for (var i = 0; i < l; i++) {
+            item = defaultItems[i];
+            tx.executeSql(sql, [item.id, item.name, item.categoryId], function (tx, results) {
+                console.log('INSERT success');
+            },
+        	function (tx, error) {self.errorHandler(error);});
+        }
 	};
 	
 	//Creates a table for the CheckLists
@@ -147,7 +312,12 @@ define(function (require) {
 
 							tx.executeSql(sql3, null, function (tx, results) {
 								console.log('Tables created with success ... Refreshing the collection ...');
-								if(successCallback) successCallback();
+
+								if(model == 0) //Blank Model
+									successCallback();
+
+								else
+									self.populateCL(tx, model, newId, successCallback);
 							},
 							function (tx, error) {self.errorHandler(error);});
 						},
@@ -159,6 +329,63 @@ define(function (require) {
 			},
 			function (error) {self.errorHandler(error);}
 		);
+	};
+
+	//Populates a new checklist with a given model
+	WebSQLStore.prototype.populateCL = function (tx, model, newId, successCallback) {
+		console.log('Populating new checklist with model id: ' + model);
+
+		var catModel = [];
+		var itemModel = []
+
+		var sql = "SELECT * FROM category_model_" + model;
+
+		tx.executeSql(sql, null, function (tx, results) {
+
+			for(var i=0; i<results.rows.length; i++)
+                catModel.push(results.rows.item(i));
+
+            console.log(catModel);
+
+            var l = catModel.length;
+	        var sql = "INSERT OR REPLACE INTO category_" + newId +
+	            " (id, name, checkedItems, totalItems) " +
+	            " VALUES (?, ?, ?, ?)";
+	        var cat;
+	        for (var i = 0; i < l; i++) {
+	            cat = catModel[i];
+	            tx.executeSql(sql, [cat.id, cat.name, 0, cat.totalItems], function (tx, results) {
+	                console.log('INSERT success');
+	            },
+	        	function (tx, error) {self.errorHandler(error);});
+	        }
+
+			var sql1 = "SELECT * FROM item_model_" + model;
+
+			tx.executeSql(sql1, null, function (tx, results) {
+				for(var i=0; i<results.rows.length; i++)
+                	itemModel.push(results.rows.item(i));
+
+                console.log(itemModel);
+
+                var l = itemModel.length;
+		        var sql1 = "INSERT OR REPLACE INTO item_" + newId +
+		            " (id, name, checked, checkedDate, categoryId) " +
+		            " VALUES (?, ?, ?, ?, ?)";
+		        var item;
+		        for (var i = 0; i < l; i++) {
+		            item = itemModel[i];
+		            tx.executeSql(sql1, [item.id, item.name, 0, 0, item.categoryId], function (tx, results) {
+		                console.log('INSERT success');
+		            },
+		        	function (tx, error) {self.errorHandler(error);});
+		        }
+
+				if(successCallback) successCallback();
+			},
+			function (tx, error) {self.errorHandler(error);});
+		},
+		function (tx, error) {self.errorHandler(error);});
 	};
 
 	//Update last modified date
