@@ -61,25 +61,30 @@ define(function (require){
 
 			var self = this;
 
-			var newWindow = new ModalPopup(
-				lang.new+' '+lang.Checklist,
-				newCLTpl(),
-				[lang.cancel, lang.create],
-				function (name, model){
-					console.log('Creating new checklist: ' + name + ' - ' + model);
-					if(name != '')
-						Store.addCheckList(name, model, function(){
-							self.listView.collection.refresh();
-							newWindow.hide();
-						});
-					else
-						return;
-				},
-				{},
-				'new-cl'
-			);
+			Store.fetchModels(function (data) {
+				console.log(data);
+				//console.log(newCLTpl({models: data}));
 
-			newWindow.show();
+				var newWindow = new ModalPopup(
+					lang.new+' '+lang.Checklist,
+					newCLTpl({models: data}),
+					[lang.cancel, lang.create],
+					function (name, model){
+						console.log('Creating new checklist: ' + name + ' - ' + model);
+						if(name != '')
+							Store.addCheckList(name, model, function(){
+								self.listView.collection.refresh();
+								newWindow.hide();
+							});
+						else
+							return;
+					},
+					{},
+					'new-cl'
+				);
+
+				newWindow.show();
+			});
 		}
 	});
 });

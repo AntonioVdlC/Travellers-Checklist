@@ -57,7 +57,7 @@ define(function (require) {
 		var self = this;
 		
         var sql = "INSERT OR REPLACE INTO model (id, name) VALUES (?, ?)";
-        tx.executeSql(sql, [1, "Default"], function (tx, results) {
+        tx.executeSql(sql, [1, lang.default], function (tx, results) {
 
         },
     	function (tx, error) {self.errorHandler(error);});
@@ -196,7 +196,38 @@ define(function (require) {
         	function (tx, error) {self.errorHandler(error);});
         }
 	};
-	
+
+	//Retrieves all the models from the model table
+	WebSQLStore.prototype.fetchModels = function (successCallback) {
+		console.log('Fetching all the models ...');
+
+		var self = this;
+
+		var data = [];
+
+		this.db.transaction(
+            function (tx) {
+
+                var sql = "SELECT * FROM model";
+
+                tx.executeSql(sql, null, function (tx, results) {
+                	for(var i=0; i<results.rows.length; i++)
+                		data.push(results.rows.item(i));
+
+                	//console.log(data);
+                	if(successCallback)successCallback(data);
+                },
+                function (tx, error) {self.errorHandler(error);});
+            },
+            function (error) {self.errorHandler(error);}
+        );
+	};
+
+	//Adds a new model to the model table
+	WebSQLStore.prototype.addModel = function (checkListId, successCallback) {
+
+	};
+
 	//Creates a table for the CheckLists
 	WebSQLStore.prototype.createCLTable = function (tx) {
 		//tx.executeSql('DROP TABLE IF EXISTS checklist');
@@ -336,7 +367,7 @@ define(function (require) {
 		console.log('Populating new checklist with model id: ' + model);
 
 		var catModel = [];
-		var itemModel = []
+		var itemModel = [];
 
 		var sql = "SELECT * FROM category_model_" + model;
 
