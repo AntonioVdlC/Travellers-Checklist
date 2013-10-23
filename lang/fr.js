@@ -1,6 +1,6 @@
 var lang = {
 //A
-	"adapteur": "Adaptateur",
+	"adapter": "Adaptateur",
 	"add": "Ajouter",
 	"alarmClock": "Réveil",
 	"antiemetic": "Antiémétique",
