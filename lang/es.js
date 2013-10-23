@@ -80,6 +80,7 @@ var lang = {
 	"newCategory": "Nueva categoría ...",
 	"newChecklist": "Nueva lista",
 	"newItem": "Nuevo objeto ...",
+	"newModelSaved": "Nuevo modelo guardado";
 //O
 	"OK": "OK",
 	"others": "Otros",
@@ -97,6 +98,7 @@ var lang = {
 	"rabies": "Rabia",
 //S
 	"saveModel": "Guardar como Modelo",
+	"savedAsModel": "Modelo Guardado",
 	"scarf": "Bufanda",
 	"shampoo": "Shampoo",
 	"shoes": "Zapatos",

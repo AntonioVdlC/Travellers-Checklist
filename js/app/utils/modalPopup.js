@@ -12,13 +12,21 @@ define(function (require){
 		//Fill the modalWindowElement
 		$('.modalWindow').append('<div class="modalWindowHeader">'+title+'</div>');
 		$('.modalWindow').append('<div class="modalWindowContent">'+innerHTML+'</div>');
-		$('.modalWindow').append(	'<div class="modalWindowFooter">' + 
-										'<button class="cancelButton">'+buttonLabels[0]+'</button>' +
-										'<button class="okButton">'+buttonLabels[1]+'</button>'+
-									'</div>');
+
+		if(buttonLabels.length == 1)
+			$('.modalWindow').append(	'<div class="modalWindowFooter">' + 
+											'<button class="okButton">'+buttonLabels[0]+'</button>'+
+										'</div>');
+
+		else if(buttonLabels.length == 2)
+			$('.modalWindow').append(	'<div class="modalWindowFooter">' + 
+											'<button class="cancelButton">'+buttonLabels[0]+'</button>' +
+											'<button class="okButton">'+buttonLabels[1]+'</button>'+
+										'</div>');
 
 		//Button events listeners
-		$('.cancelButton').on('click', this.hide);
+		if(type != 'info')
+			$('.cancelButton').on('click', this.hide);
 
 		if(type == 'delete-cl')
 			$('.okButton').on('click', {id: data.id}, callback);
@@ -28,6 +36,8 @@ define(function (require){
 			$('.okButton').on('click', {id: data.id}, callback);
 		else if(type == 'delete-item')
 			$('.okButton').on('click', {id: data.id}, callback);
+		else if(type == 'info')
+			$('.okButton').on('click', this.hide);
 		else
 			$('.okButton').on('click', callback);
 

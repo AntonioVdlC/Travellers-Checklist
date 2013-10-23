@@ -224,8 +224,113 @@ define(function (require) {
 	};
 
 	//Adds a new model to the model table
-	WebSQLStore.prototype.addModel = function (checkListId, successCallback) {
+	WebSQLStore.prototype.addModel = function (checkListId, checkListName, successCallback) {
+		console.log('Saving ' + checkListName + ' as Model ...');
 
+		var self = this;
+
+		this.db.transaction(
+			function (tx) {
+				
+				var sql = "INSERT OR REPLACE INTO model " +
+						"(name) " +
+						"VALUES (?)";
+
+				tx.executeSql(sql, [checkListName], function (tx, results) {
+					console.log('Inserting new model name into model table OK ... Creating catagory and item tables');
+					
+					var sql1 = "SELECT id FROM model WHERE name='" + checkListName +"'";
+
+					tx.executeSql(sql1, null, function (tx, results) {
+						console.log("New model id: " + results.rows.item(0).id);
+
+						var modelId = results.rows.item(0).id;
+
+						var sql2 = "CREATE TABLE IF NOT EXISTS category_model_"+ modelId +" ( " +
+		            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+		            		"name VARCHAR(50)," +
+		            		"totalItems INTEGER)";
+
+						tx.executeSql(sql2, null, function (tx, results) {
+							var sql3 = "CREATE TABLE IF NOT EXISTS item_model_"+ modelId +" ( " +
+			            		"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			            		"name VARCHAR(50), " +
+			            		"categoryId INTEGER)";
+
+							tx.executeSql(sql3, null, function (tx, results) {
+								console.log('Tables created with success ... Populating the tables ...');
+								
+								self.populateModel(tx, checkListId, modelId, successCallback);
+							},
+							function (tx, error) {self.errorHandler(error);});
+						},
+						function (tx, error) {self.errorHandler(error);});
+					},
+					function (tx, error) {self.errorHandler(error);});	
+				},
+                function (tx, error) {self.errorHandler(error);});
+			},
+            function (error) {self.errorHandler(error);}
+		);
+	};
+
+	//Populates a new model with a given checklist
+	WebSQLStore.prototype.populateModel = function (tx, checkListId, modelId, successCallback) {
+		console.log('Populating new model with checklist id: ' + checkListId);
+
+		var self = this;
+
+		var catModel = [];
+		var itemModel = [];
+
+		var sql = "SELECT * FROM category_" + checkListId;
+
+		tx.executeSql(sql, null, function (tx, results) {
+
+			for(var i=0; i<results.rows.length; i++)
+                catModel.push(results.rows.item(i));
+
+            console.log(catModel);
+
+            var l = catModel.length;
+	        var sql = "INSERT OR REPLACE INTO category_model_" + modelId +
+	            " (id, name, totalItems) " +
+	            " VALUES (?, ?, ?)";
+	        var cat;
+	        for (var i = 0; i < l; i++) {
+	            cat = catModel[i];
+	            tx.executeSql(sql, [cat.id, cat.name, cat.totalItems], function (tx, results) {
+	                console.log('INSERT success');
+	            },
+	        	function (tx, error) {self.errorHandler(error);});
+	        }
+
+			var sql1 = "SELECT * FROM item_" + checkListId;
+
+			tx.executeSql(sql1, null, function (tx, results) {
+				for(var i=0; i<results.rows.length; i++)
+                	itemModel.push(results.rows.item(i));
+
+                console.log(itemModel);
+
+                var l = itemModel.length;
+		        var sql1 = "INSERT OR REPLACE INTO item_model_" + modelId +
+		            " (id, name, categoryId) " +
+		            " VALUES (?, ?, ?)";
+		        var item;
+		        for (var i = 0; i < l; i++) {
+		            item = itemModel[i];
+		            tx.executeSql(sql1, [item.id, item.name, item.categoryId], function (tx, results) {
+		                console.log('INSERT success');
+		            },
+		        	function (tx, error) {self.errorHandler(error);});
+		        }
+
+				if(successCallback) successCallback();
+			},
+			function (tx, error) {self.errorHandler(error);});
+		},
+		function (tx, error) {self.errorHandler(error);});
 	};
 
 	//Creates a table for the CheckLists
