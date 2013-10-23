@@ -2,7 +2,7 @@
 <widget id="com.antoniovdlc.tcl" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>TravellerCheckList</name>
     <description>
-        Checklist application specially aimed to travellers. Make your trips smooth without forgetting anything anymore thanks to this application!
+        Checklist application specially aimed at travellers. Make your trips smooth without forgetting anything anymore thanks to this application!
     </description>
     <author email="antonio.villagra.de.la.cruz@gmail.com" href="https://github.com/AntonioVdlC">
         Antonio Villagra De La Cruz

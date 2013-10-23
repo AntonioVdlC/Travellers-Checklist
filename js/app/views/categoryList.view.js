@@ -88,7 +88,24 @@ define(function (require){
 		},
 
 		saveAsModel: function (e) {
+			//console.log(e);
+			//console.log($('.checkListName')[0].innerText);
 			
+			var self = this;
+			var clName = $('.checkListName')[0].innerText;
+
+			Store.addModel(this.id, clName, function () {
+				var infoWindow = new ModalPopup(
+					lang.savedAsModel, 
+					'<p>' + lang.newModelSaved + ': "' + clName + '".</p>', 
+					[lang.OK],
+					function (){},
+					{}, 
+					'info'
+				);
+
+				infoWindow.show();
+			});
 		}
 
 	});

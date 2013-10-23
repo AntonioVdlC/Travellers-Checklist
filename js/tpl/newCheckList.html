@@ -11,5 +11,7 @@
 </p>
 <select id="model-cl">
 	<option value="0"><% print(lang.blank) %></option>
-	<option value="1"><% print(lang.default) %></option>
+	<% _.each(models, function(model) { %>
+		<option value="<%= model.id %>"><%= model.name %></option>
+	<% }); %>
 </select>
