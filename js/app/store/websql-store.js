@@ -658,7 +658,7 @@ define(function (require) {
 					console.log('Retrieving name of category: ' + results.rows.item(0).name);
 					data.categoryName = results.rows.item(0).name;
 
-					var sql1 = "SELECT * FROM item_"+ checkListId+" WHERE categoryId='"+categoryId+"'";
+					var sql1 = "SELECT * FROM item_"+ checkListId+" WHERE categoryId='"+categoryId+"' ORDER BY checked ASC";
 					tx.executeSql(sql1, null, function (tx, results) {
 						console.log("Retrieving all info on item_"+ checkListId);
 

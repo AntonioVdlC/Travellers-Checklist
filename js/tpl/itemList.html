@@ -15,7 +15,7 @@
         	<label class="topcoat-checkbox">
         		<input type="checkbox" name="check-item_<%= item.id %>" class="check-item" id="<%= item.id %>" <% if(item.checked == 1) { %> checked <% } %>>
         		<div class="topcoat-checkbox__checkmark"></div>
-        		<span class="item-name"><%= item.name %></span>
+        		<span class="item-name <%if(item.checked == 1){%>checked<%}%>"><%= item.name %></span>
         	</label>
     		<% if(item.checkedDate != 0 && item.checked == 1) { %>
     			<br/>

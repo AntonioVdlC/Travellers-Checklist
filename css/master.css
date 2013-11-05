@@ -207,11 +207,16 @@
     right: 0px;
 }
 
-/* Category Name */
+/* Item Name */
 .item-name {
     text-decoration: none;
     font-size: 2em;
     margin-left: 10px;
+}
+
+.item-name.checked {
+    text-decoration: line-through;
+    color: darkgray;
 }
 
 /* Items checked */
