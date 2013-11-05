@@ -386,7 +386,7 @@ define(function (require) {
 			function (tx){
 				var sql = "DELETE FROM checklist WHERE id = :id";
 
-				tx.executeSql(sql, [id], function (tx, results){
+				tx.executeSql(sql, [id], function (tx, results){
 					console.log('CheckList deleted ... Droping category_ and item_ tables ...');
 
 					var sql1 = "DROP TABLE IF EXISTS category_"+id;
@@ -619,7 +619,7 @@ define(function (require) {
 			function (tx){
 				var sql = "DELETE FROM category_"+checkListId+" WHERE id = :id";
 
-				tx.executeSql(sql, [categoryId], function (tx, results){
+				tx.executeSql(sql, [categoryId], function (tx, results){
 					console.log('Category deleted ... Deleting the items from this category ...');
 
 					var sql1 = "DELETE FROM item_"+checkListId+" WHERE categoryId=" + categoryId;
@@ -722,7 +722,7 @@ define(function (require) {
 			function (tx){
 				var sql = "DELETE FROM item_"+checkListId+" WHERE id = :id";
 
-				tx.executeSql(sql, [itemId], function (tx, results){
+				tx.executeSql(sql, [itemId], function (tx, results){
 					console.log('Item deleted ... Updating the category ...');
 
 					var sql1 = "UPDATE category_"+ checkListId + 
