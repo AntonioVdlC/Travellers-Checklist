@@ -19,7 +19,7 @@ var lang = {
 	"category": "category",
 	"Category": "Category",
 	"chargers": "Chargers",
-	"checkedOn": "Checked on: ",
+	"checkedOn": "Checked on",
 	"checklist": "checklist",
 	"Checklist": "Checklist",
 	"cholera": "Cholera",

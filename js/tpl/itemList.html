@@ -15,11 +15,10 @@
         	<label class="topcoat-checkbox">
         		<input type="checkbox" name="check-item_<%= item.id %>" class="check-item" id="<%= item.id %>" <% if(item.checked == 1) { %> checked <% } %>>
         		<div class="topcoat-checkbox__checkmark"></div>
-        		<span class="item-name"><%= item.name %></span>
+        		<p class="item-name <%if(item.checked == 1){%>checked<%}%>"><%= item.name %></p>
         	</label>
     		<% if(item.checkedDate != 0 && item.checked == 1) { %>
-    			<br/>
-    			<span class="last-checked"><% print(lang.checkedOn) %>: <%= item.checkedDate %></span>
+    			<p class="last-checked"><% print(lang.checkedOn) %>: <%= item.checkedDate %></p>
     		<% } %>
 	    </li>
 	<% }); %>

@@ -1,4 +1,13 @@
 /*------------------------------
+ * ANDROID SPECIFIC STYLE
+ *------------------------------*/
+
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+} 
+
+
+/*------------------------------
  * TITLE BAR
  *------------------------------*/
 
@@ -18,6 +27,13 @@
 }
 
 /* Scrollable List Content */
+.list li {
+    position: relative;
+    text-align: left;
+    clear: both;
+    padding: 12px 60px 16px 8px !important;
+}
+
 .scrollable-cl {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -35,18 +51,21 @@
 /* CheckList Name */
 .cl-name {
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 2em;
+    margin: 0px;
 }
 
 /* Last Modified Date text*/
 .last-modified{
-    font-size: 0.75em;
+    font-size: 1em;
+    margin: 0px;
 }
 
 /* Delete Icon */
 .delete-cl{
-    float: right;
-    display: inline-block;
+    position: absolute;
+    right: 12px;
+    top: 22px;
     height: 42px;
     width: 42px;
     background: url("../img/delete.svg") no-repeat;
@@ -69,7 +88,7 @@
     height: 3rem;
     padding-top: 0.5rem;
     text-align: center;
-    box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;
+    /*box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;*/
 }
 
 /* CheckList Name */
@@ -94,7 +113,11 @@
 
 /* Add Category Input */
 #add-cat-input{
+<<<<<<< HEAD
     width: 65%;
+=======
+    width: 61%;
+>>>>>>> develop
     line-height: 212%;
     margin-left: 1%;
     font-size: 1em;
@@ -105,8 +128,13 @@
     float: right;
     line-height: 245%;
     width: 200%;
+<<<<<<< HEAD
     max-width: 25%;
     margin-top: 2px;
+=======
+    max-width: 35%;
+    margin-top: 1px;
+>>>>>>> develop
     margin-right: 1%;
 }
 
@@ -128,18 +156,21 @@
 /* Category Name */
 .cat-name {
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 2em;
+    margin: 0px;
 }
 
 /* Items checked */
 .cat-items{
-    font-size: 0.75em;
+    font-size: 1em;
+    margin: 0px;
 }
 
 /* Delete Icon */
 .delete-cat{
-    float: right;
-    display: inline-block;
+    position: absolute;
+    right: 12px;
+    top: 22px;
     height: 42px;
     width: 42px;
     background: url("../img/delete.svg") no-repeat;
@@ -155,7 +186,7 @@
     height: 3rem;
     padding-top: 0.5rem;
     text-align: center;
-    box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;
+    /*box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;*/
 }
 
 /* Category Name */
@@ -171,7 +202,11 @@
 
 /* Add Category Input */
 #add-item-input{
+<<<<<<< HEAD
     width: 65%;
+=======
+    width: 61%;
+>>>>>>> develop
     line-height: 212%;
     margin-left: 1%;
     font-size: 1em;
@@ -182,8 +217,13 @@
     float: right;
     line-height: 245%;
     width: 200%;
+<<<<<<< HEAD
     max-width: 25%;
     margin-top: 2px;
+=======
+    max-width: 35%;
+    margin-top: 1px;
+>>>>>>> develop
     margin-right: 1%;
 }
 
@@ -198,22 +238,30 @@
     right: 0px;
 }
 
-/* Category Name */
+/* Item Name */
 .item-name {
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 2em;
     margin-left: 10px;
+    display: inline;
+}
+
+.item-name.checked {
+    text-decoration: line-through;
+    color: darkgray;
 }
 
 /* Items checked */
 .last-checked{
-    font-size: 0.75em;
+    font-size: 1em;
+    margin: 0px;
 }
 
 /* Delete Icon */
 .delete-item{
-    float: right;
-    display: inline-block;
+    position: absolute;
+    right: 12px;
+    /*top: 22px;*/
     height: 42px;
     width: 42px;
     background: url("../img/delete.svg") no-repeat;

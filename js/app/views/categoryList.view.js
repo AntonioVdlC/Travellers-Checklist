@@ -12,10 +12,15 @@ define(function (require){
 
 	return Backbone.View.extend({
 
-		initialize: function () {
+		initialize: function (opt) {
 			this.collection = new model.CategoryCollection();
 			this.collection.on("reset", this.render, this);
+
+			this.id = opt.id;
+			this.collection.checkListId = this.id;
+
 			//this.render();
+			this.collection.refresh();
 		},
 
 		preRender: function () {
