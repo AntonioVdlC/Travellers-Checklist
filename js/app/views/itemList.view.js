@@ -12,9 +12,17 @@ define(function (require){
 
 	return Backbone.View.extend({
 
-		initialize: function () {
+		initialize: function (opt) {
 			this.collection = new model.ItemCollection();
 			this.collection.on("reset", this.render, this);
+
+			this.id = opt.id;
+			this.checkListId = opt.checkListId;
+
+			this.collection.id = this.id;
+			this.collection.checkListId = this.checkListId;
+			this.collection.refresh();
+
 			//this.render();
 		},
 

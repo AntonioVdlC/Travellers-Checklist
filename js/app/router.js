@@ -39,21 +39,13 @@ define(function (require){
 				$('body').append('<div id="mainContent"></div>');
 			}
 
-			checkListView = new CheckListView({el:$('#mainContent')});
-			
-			checkListView.id = id;
-			//console.log(checkListView);
-			checkListView.preRender();
+			checkListView = new CheckListView({el:$('#mainContent'), id: id});
 		},
 
 		categoryPage: function (clId, catId) {
 			console.log('Routing to Category Page: ' + catId + ' from CheckList: ' + clId);
-			categoryView = new CategoyView({el:$('#mainContent')});
-
-			categoryView.id = catId;
-			categoryView.checkListId = clId;
-
-			categoryView.preRender();
+			
+			categoryView = new CategoyView({el:$('#mainContent'), id: catId, checkListId: clId});
 		}
 	});
 });
