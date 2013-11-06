@@ -13,8 +13,8 @@
 	    <li class="topcoat-list__item">
 	        <span class="delete-cat" id="<%= category.id %>"></span>
 	        <a href="#checklist/<%= categories[0].checkListId %>/category/<%= category.id %>">
-	        	<span class="cat-name"><%= category.name %></span><br/>
-	        	<span class="cat-items"><%= category.checkedItems %> / <%= category.totalItems %> <% print(lang.items) %></span>
+	        	<p class="cat-name"><%= category.name %></p>
+	        	<p class="cat-items"><%= category.checkedItems %> / <%= category.totalItems %> <% print(lang.items) %></p>
 	        </a>
 	    </li>
 	<% }); %>

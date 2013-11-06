@@ -27,6 +27,13 @@
 }
 
 /* Scrollable List Content */
+.list li {
+    position: relative;
+    text-align: left;
+    clear: both;
+    padding: 12px 60px 16px 8px !important;
+}
+
 .scrollable-cl {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -45,17 +52,20 @@
 .cl-name {
     text-decoration: none;
     font-size: 2em;
+    margin: 0px;
 }
 
 /* Last Modified Date text*/
 .last-modified{
     font-size: 1em;
+    margin: 0px;
 }
 
 /* Delete Icon */
 .delete-cl{
-    float: right;
-    display: inline-block;
+    position: absolute;
+    right: 12px;
+    top: 22px;
     height: 42px;
     width: 42px;
     background: url("../img/delete.svg") no-repeat;
@@ -138,17 +148,20 @@
 .cat-name {
     text-decoration: none;
     font-size: 2em;
+    margin: 0px;
 }
 
 /* Items checked */
 .cat-items{
     font-size: 1em;
+    margin: 0px;
 }
 
 /* Delete Icon */
 .delete-cat{
-    float: right;
-    display: inline-block;
+    position: absolute;
+    right: 12px;
+    top: 22px;
     height: 42px;
     width: 42px;
     background: url("../img/delete.svg") no-repeat;
@@ -212,6 +225,7 @@
     text-decoration: none;
     font-size: 2em;
     margin-left: 10px;
+    display: inline;
 }
 
 .item-name.checked {
@@ -222,12 +236,14 @@
 /* Items checked */
 .last-checked{
     font-size: 1em;
+    margin: 0px;
 }
 
 /* Delete Icon */
 .delete-item{
-    float: right;
-    display: inline-block;
+    position: absolute;
+    right: 12px;
+    /*top: 22px;*/
     height: 42px;
     width: 42px;
     background: url("../img/delete.svg") no-repeat;

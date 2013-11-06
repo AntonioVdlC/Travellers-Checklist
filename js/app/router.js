@@ -21,9 +21,6 @@ define(function (require){
 
 		home: function (){
 			console.log('Routing to home...');
-			
-			if(checkListView)
-				checkListView.remove();
 
 			homeView.render();
 		},
