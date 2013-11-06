@@ -113,11 +113,7 @@
 
 /* Add Category Input */
 #add-cat-input{
-<<<<<<< HEAD
     width: 65%;
-=======
-    width: 61%;
->>>>>>> develop
     line-height: 212%;
     margin-left: 1%;
     font-size: 1em;
@@ -128,13 +124,8 @@
     float: right;
     line-height: 245%;
     width: 200%;
-<<<<<<< HEAD
     max-width: 25%;
     margin-top: 2px;
-=======
-    max-width: 35%;
-    margin-top: 1px;
->>>>>>> develop
     margin-right: 1%;
 }
 
@@ -202,11 +193,7 @@
 
 /* Add Category Input */
 #add-item-input{
-<<<<<<< HEAD
     width: 65%;
-=======
-    width: 61%;
->>>>>>> develop
     line-height: 212%;
     margin-left: 1%;
     font-size: 1em;
@@ -217,13 +204,8 @@
     float: right;
     line-height: 245%;
     width: 200%;
-<<<<<<< HEAD
     max-width: 25%;
     margin-top: 2px;
-=======
-    max-width: 35%;
-    margin-top: 1px;
->>>>>>> develop
     margin-right: 1%;
 }
 
