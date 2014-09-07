@@ -48,6 +48,8 @@ body{
 .nav-bar{
     background-color: black;
     height: 30px;
+    width: 100%;
+    z-index: 10;
 }
 
 /* Icon */
@@ -151,8 +153,8 @@ body{
 
 /* CheckList Navigation Bar */
 .checkListNav {
-    padding-top: 3%;
-    padding-bottom: 2%;
+    padding-top: 10px;
+    padding-bottom: 5px;
     margin-left: 5%;
     width: 90%;
 }
@@ -230,8 +232,8 @@ body{
 
 /* Category Navigation Bar */
 .categoryNav {
-    padding-top: 3%;
-    padding-bottom: 2%;
+    padding-top: 10px;
+    padding-bottom: 5px;
     margin-left: 5%;
     width: 90%;
 }
