@@ -1,16 +1,15 @@
 <div class="checkListNav">
-	<span class="back-button"></span>
 	<span class="checkListName"><%= categories[0].checkListName %></span>
 </div>
 
 <div class="addCategoy">
-	<input type="text" id="add-cat-input" value="<%print(lang.newCategory)%>"><button class="topcoat-button" id="add-cat-button"><% print(lang.add) %></button>
+	<input type="text" id="add-cat-input" value="<%print(lang.newCategory)%>"><button class="button" id="add-cat-button"><% print(lang.add) %></button>
 </div>
 
-<div class="topcoat-list__container scrollable-cat">
-	<ul class="topcoat-list list">
+<div class="list-container scrollable-cat">
+	<ul class="list">
 	<% _.each(categories[0].array, function(category) { %>
-	    <li class="topcoat-list__item">
+	    <li class="list-item">
 	        <span class="delete-cat" id="<%= category.id %>"></span>
 	        <a href="#checklist/<%= categories[0].checkListId %>/category/<%= category.id %>">
 	        	<p class="cat-name"><%= category.name %></p>
@@ -22,5 +21,5 @@
 </div>
 
 <div class="footer">
-	<button class="topcoat-button save-model"><% print(lang.saveModel) %></button>
+	<button class="button save-model"><% print(lang.saveModel) %></button>
 </div>

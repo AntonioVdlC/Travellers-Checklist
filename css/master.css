@@ -8,12 +8,65 @@
 
 
 /*------------------------------
+ * GLOBAL
+ *------------------------------*/
+
+/* Body */
+body{
+    margin: 0px;
+    background-color: #e5e9e8;
+}
+
+/* Button */
+.button{
+    padding: 0 0.75rem;
+    font-size: 0.88em;
+    line-height: 2.5rem;
+    letter-spacing: 1px;
+    color: #454545;
+    text-shadow: 0 1px #fff;
+    background-color: lightgrey;
+    box-shadow: inset 0 1px #fff;
+    border: 1px solid #a5a8a8;
+    border-radius: 6px;
+}
+
+/* Back button */
+.back-button{
+    float: left;
+    height: 10px;
+    width: 10px;
+    padding-top: 10px;
+    visibility: hidden;
+}
+
+/*------------------------------
  * TITLE BAR
  *------------------------------*/
 
+/* Navigation Bar */
+.nav-bar{
+    background-color: black;
+    height: 30px;
+}
+
+/* Icon */
+.nav-bar-icon {
+    height: 20px;
+    float: left;
+    padding-top: 5px;
+    margin-right: 5px;
+    /*padding-left: 5px;*/
+}
+
 /* Title */
-.center.full {
-    line-height: 160%;
+.nav-bar-title {
+    margin: 0%;
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 
 
@@ -23,29 +76,42 @@
 
 /* Introduction Text */
 #introText {
-    vertical-align: middle;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+    border-bottom: 1px solid darkgray;
+    padding-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 /* Scrollable List Content */
-.list li {
-    position: relative;
-    text-align: left;
-    clear: both;
-    padding: 12px 60px 16px 8px !important;
-}
 
 .scrollable-cl {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     position: absolute;
-    top: 170px;
-    bottom: 60px;
+    top: 115px;
+    bottom: 55px;
     left: 0px;
     right: 0px;
 }
 .scrollable-cl a {
     text-decoration: none;
     color: inherit;
+}
+
+.list{
+    list-style: none;
+    width: 90%;
+    padding-left: 5%; 
+    margin: 0px;
+}
+
+.list-item {
+    position: relative;
+    padding: 12px 60px 16px 8px !important;
+    border-bottom: 1px solid darkgrey;
 }
 
 /* CheckList Name */
@@ -57,7 +123,7 @@
 
 /* Last Modified Date text*/
 .last-modified{
-    font-size: 1em;
+    font-size: 0.75em;
     margin: 0px;
 }
 
@@ -75,7 +141,7 @@
 .footer{
     position: absolute;
     bottom: 5px;
-    right: 0px;
+    right: 5%;
 }
 
 
@@ -85,48 +151,38 @@
 
 /* CheckList Navigation Bar */
 .checkListNav {
-    height: 3rem;
-    padding-top: 0.5rem;
-    text-align: center;
-    /*box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;*/
+    padding-top: 3%;
+    padding-bottom: 2%;
+    margin-left: 5%;
+    width: 90%;
 }
 
 /* CheckList Name */
 .checkListName {
-    line-height: 130%;
     font-size: 2rem;
-}
-
-/* Back button */
-.back-button{
-    float: left;
-    display: inline-block;
-    height: 42px;
-    width: 42px;
-    background: url("../img/back_light.svg") no-repeat;
+    font-weight: bold;
 }
 
 /* Add Category Bar */
 .addCategoy {
     background: #e5e9e8;
+    width: 90%;
+    margin-left: 5%;
 }
 
 /* Add Category Input */
 #add-cat-input{
     width: 61%;
-    line-height: 212%;
-    margin-left: 1%;
+    line-height: 2.2rem;
     font-size: 1em;
+    border-radius: 6px;
 }
 
 /* Add Category Button */
 #add-cat-button {
     float: right;
-    line-height: 245%;
-    width: 200%;
-    max-width: 35%;
+    width: 35%;
     margin-top: 1px;
-    margin-right: 1%;
 }
 
 /* Scrollable List Content */
@@ -134,8 +190,8 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     position: absolute;
-    top: 170px;
-    bottom: 60px;
+    top: 135px;
+    bottom: 55px;
     left: 0px;
     right: 0px;
 }
@@ -174,39 +230,38 @@
 
 /* Category Navigation Bar */
 .categoryNav {
-    height: 3rem;
-    padding-top: 0.5rem;
-    text-align: center;
-    /*box-shadow: inset 0 -1px #b9bcbc,0 1px #d4d6d6;*/
+    padding-top: 3%;
+    padding-bottom: 2%;
+    margin-left: 5%;
+    width: 90%;
 }
 
 /* Category Name */
 .categoryName {
-    line-height: 130%;
     font-size: 2rem;
+    font-weight: bold;
 }
 
 /* Add Category Bar */
 .addItem {
     background: #e5e9e8;
+    width: 90%;
+    margin-left: 5%;
 }
 
 /* Add Category Input */
 #add-item-input{
     width: 61%;
-    line-height: 212%;
-    margin-left: 1%;
+    line-height: 2.2rem;
     font-size: 1em;
+    border-radius: 6px;
 }
 
 /* Add Category Button */
 #add-item-button {
     float: right;
-    line-height: 245%;
-    width: 200%;
-    max-width: 35%;
+    width: 35%;
     margin-top: 1px;
-    margin-right: 1%;
 }
 
 /* Scrollable List Content */
@@ -214,8 +269,8 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     position: absolute;
-    top: 170px;
-    bottom: 0px;
+    top: 135px;
+    bottom: 5px;
     left: 0px;
     right: 0px;
 }
@@ -253,4 +308,180 @@
 .check-item {
     opacity: 1;
     float: left;
+}
+
+
+/**
+*
+* Copyright 2012 Adobe Systems Inc.;
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+*/
+
+input[type="checkbox"] {
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  opacity: 0.001;
+  z-index: 1;
+  vertical-align: top;
+  outline: none;
+}
+
+.checkbox,
+.topcoat-checkbox__checkmark {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox__label,
+.topcoat-checkbox {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox--disabled,
+input[type="checkbox"]:disabled + .topcoat-checkbox__checkmark {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.checkbox:before,
+.checkbox:after,
+.topcoat-checkbox__checkmark:before,
+.topcoat-checkbox__checkmark:after {
+  content: '';
+  position: absolute;
+}
+
+.checkbox:before,
+.topcoat-checkbox__checkmark:before {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-clip: padding-box;
+}
+
+/* topdoc
+  name: Checkbox
+  description: Default skin for Topcoat checkbox
+  modifiers:
+    :focus: Focus state
+    :disabled: Disabled state
+  markup:
+    <label class="topcoat-checkbox">
+      <input type="checkbox">
+      <div class="topcoat-checkbox__checkmark"></div>
+      Default
+    </label>
+    <br>
+    <br>
+    <label class="topcoat-checkbox">
+      <input type="checkbox" disabled>
+      <div class="topcoat-checkbox__checkmark"></div>
+      Disabled
+    </label>
+  examples:
+    mobile checkbox: http://codepen.io/Topcoat/pen/piHcs
+  tags:
+    - desktop
+    - light
+    - mobile
+    - checkbox
+*/
+
+.topcoat-checkbox__checkmark {
+  height: 2rem;
+}
+
+input[type="checkbox"] {
+  height: 2rem;
+  width: 2rem;
+  margin-top: 0;
+  margin-right: -2rem;
+  margin-bottom: -2rem;
+  margin-left: 0;
+}
+
+input[type="checkbox"]:checked + .topcoat-checkbox__checkmark:after {
+  opacity: 1;
+}
+
+.topcoat-checkbox {
+  line-height: 2rem;
+}
+
+.topcoat-checkbox__checkmark:before {
+  width: 2rem;
+  height: 2rem;
+  background: #e5e9e8;
+  border: 1px solid #9daca9;
+  border-radius: 3px;
+  box-shadow: inset 0 1px #fff;
+}
+
+.topcoat-checkbox__checkmark {
+  width: 2rem;
+  height: 2rem;
+}
+
+.topcoat-checkbox__checkmark:after {
+  top: 1px;
+  left: 2px;
+  opacity: 0;
+  width: 28px;
+  height: 11px;
+  background: transparent;
+  border: 7px solid #454545;
+  border-width: 7px;
+  border-top: none;
+  border-right: none;
+  border-radius: 2px;
+  -webkit-transform: rotate(-50deg);
+  -ms-transform: rotate(-50deg);
+  transform: rotate(-50deg);
+}
+
+input[type="checkbox"]:focus + .topcoat-checkbox__checkmark:before {
+  border: 1px solid #0036ff;
+  box-shadow: inset 0 1px rgba(255,255,255,0.36), 0 0 0 2px #6fb5f1;
+}
+
+input[type="checkbox"]:active + .topcoat-checkbox__checkmark:before {
+  border: 1px solid #9daca9;
+  background-color: #d2d6d6;
+  box-shadow: inset 0 1px rgba(0,0,0,0.1);
+}
+
+input[type="checkbox"]:disabled:active + .topcoat-checkbox__checkmark:before {
+  border: 1px solid #9daca9;
+  background: #e5e9e8;
+  box-shadow: inset 0 1px #fff;
 }

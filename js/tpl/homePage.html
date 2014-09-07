@@ -1,19 +1,17 @@
-<div class="topcoat-navigation-bar">
-    <div class="topcoat-navigation-bar__item center full">
-        <h1 class="topcoart-navigation-bar__title">Traveller's CheckList</h1>
-    </div>
+<div class="nav-bar">
+	<img class="back-button" src="img/back.png" alt="Back button" />
+	<img class="nav-bar-icon" src="img/icon.png" alt="Icon" />
+    <h1 class="nav-bar-title">Traveller's CheckList</h1>
 </div>
 <div id="mainContent">
-	<div id="introText">
-		<p class="center">
-			<% print(lang.introText) %>
-		</p>
-	</div>
+	<p id="introText">
+		<% print(lang.introText) %>
+	</p>
 
-	<div class="topcoat-list__container scrollable-cl">
+	<div class="list-container scrollable-cl">
 	</div>
 
 	<div class="footer">
-		<button class="topcoat-button new-cl">+ <% print(lang.newChecklist) %></button>
+		<button class="button new-cl">+ <% print(lang.newChecklist) %></button>
 	</div>
 </div>

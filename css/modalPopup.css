@@ -107,12 +107,13 @@
 }
 
 .hint {
-    font-size: 0.5em;
+    font-size: 0.67em;
     text-align: left;
     -webkit-margin-before: 0em;
     -webkit-margin-after: 1.5em;
     line-height: normal;
     visibility: hidden;
+    color: red;
 }
 
 #model-cl {
@@ -143,21 +144,6 @@ text-align: left;
     border-radius: 6px;
     margin-right: 5%;
     width: 45%;
-
-    /*padding: 10px;
-
-    text-align: center;
-    font-weight: bold;  
-    font-size: 0.75em;   
-
-    color: #fff;        
-
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F2594B), color-stop(2%, #F2594B), color-stop(100%, #BF0426));
-    -webkit-box-shadow: 1px 1px 6px #666666;
-    border: 1px solid #aa0000;
-    border-top-color: #bf0000; 
-    -webkit-border-radius: 4px; 
-    -webkit-tap-highlight-color: rgba(0,0,0,0);*/
 }
 
 .okButton{
@@ -174,19 +160,4 @@ text-align: left;
     border-radius: 6px;
     margin-left: 5%;
     width: 45%;
-
-    /*padding: 10px;
-
-    text-align: center;
-    font-weight: bold;  
-    font-size: 1.15em;   
-
-    color: #fff;        
-
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #F2594B), color-stop(2%, #F2594B), color-stop(100%, #BF0426));
-    -webkit-box-shadow: 1px 1px 6px #666666;
-    border: 1px solid #aa0000;
-    border-top-color: #bf0000; 
-    -webkit-border-radius: 4px; 
-    -webkit-tap-highlight-color: rgba(0,0,0,0);*/
 }

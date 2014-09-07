@@ -49,7 +49,7 @@ var lang = {
 	"hepatitisA": "Hepatitis A",
 	"hepatitisB": "Hepatitis B",
 //I
-	"introText": "Welcome to Traveller's Checklist!<br/>You can easily manage your checklists before going on a trip, so you will never again forget a thing!",
+	"introText": "Easily manage your checklists before going on a trip, so you will never again forget a thing!",
 	"influenza": "Influenza",
 	"insurance": "Insurance",
 	"item": "item",
@@ -75,7 +75,7 @@ var lang = {
 	"multiPlug": "Multi Plug",
 //N
 	"name": "Name",
-	"nameUnique": "The name must be unique within the app.",
+	"nameUnique": "The name must be unique.",
 	"new": "New",
 	"newCategory": "New category...",
 	"newChecklist": "New Checklist",

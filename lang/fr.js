@@ -49,7 +49,7 @@ var lang = {
 	"hepatitisA": "Hépatite A",
 	"hepatitisB": "Hépatite B",
 //I
-	"introText": "Bienvenue sur Traveller's Checklist !<br/>Vous pouvez facilement gérer vos listes de voyage avant de partir, de telle sorte à ce que vous n'oubliiez plus jamais la moindre chose !",
+	"introText": "Gérez facilement vos listes de voyage avant de partir, de telle sorte à ne plus jamais rien oublier !",
 	"influenza": "Grippe",
 	"insurance": "Assurance",
 	"item": "objet",
@@ -75,7 +75,7 @@ var lang = {
 	"multiPlug": "Multiprises",
 //N
 	"name": "Nom",
-	"nameUnique": "Le nom doit être unique au sein de l'application.",
+	"nameUnique": "Le nom doit être unique.",
 	"new": "Nouveau",
 	"newCategory": "Nouvelle catégorie...",
 	"newChecklist": "Nouvelle Liste",

@@ -22,11 +22,15 @@ define(function (require){
 		home: function (){
 			console.log('Routing to home...');
 
+			$(".back-button").css("visibility", "hidden");
+
 			homeView.render();
 		},
 
 		checkListPage: function (id) {
 			console.log('Routing to CheckList Page: ' + id);
+
+			$(".back-button").css("visibility", "visible");
 
 			if(categoryView)
 				categoryView.remove();

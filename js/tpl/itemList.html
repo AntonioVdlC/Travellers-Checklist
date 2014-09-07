@@ -1,16 +1,15 @@
 <div class="categoryNav">
-	<span class="back-button"></span>
 	<span class="categoryName"><%= items[0].categoryName %></span>
 </div>
 
 <div class="addItem">
-	<input type="text" id="add-item-input" value="<%print(lang.newItem)%>"><button class="topcoat-button" id="add-item-button"><% print(lang.add) %></button>
+	<input type="text" id="add-item-input" value="<%print(lang.newItem)%>"><button class="button" id="add-item-button"><% print(lang.add) %></button>
 </div>
 
-<div class="topcoat-list__container scrollable-item">
-	<ul class="topcoat-list list">
+<div class="list-container scrollable-item">
+	<ul class="list">
 	<% _.each(items[0].array, function(item) { %>
-	    <li class="topcoat-list__item">
+	    <li class="list-item">
 	        <span class="delete-item" id="<%= item.id %>"></span>
         	<label class="topcoat-checkbox">
         		<input type="checkbox" name="check-item_<%= item.id %>" class="check-item" id="<%= item.id %>" <% if(item.checked == 1) { %> checked <% } %>>
