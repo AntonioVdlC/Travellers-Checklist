@@ -4,7 +4,7 @@
     <description>
         Checklist application specially aimed at travellers. Make your trips smooth without forgetting anything anymore thanks to this application!
     </description>
-    <author email="antonio.villagra.de.la.cruz@gmail.com" href="https://github.com/AntonioVdlC">
+    <author email="antonio@villagradelacruz.com" href="http://antoniovdlc.me">
         Antonio Villagra De La Cruz
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
